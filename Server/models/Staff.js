@@ -1,6 +1,17 @@
 // models/Staff.js
 import mongoose from "mongoose";
 
+const licenseSchema = new mongoose.Schema(
+  {
+    licenseType: { type: String },
+    number: { type: String },
+    issueDate: { type: Date },
+    expiryDate: { type: Date },
+    authority: { type: String },
+  },
+  { _id: false }
+);
+
 const staffSchema = new mongoose.Schema(
   {
     // Personal Information
@@ -36,15 +47,7 @@ const staffSchema = new mongoose.Schema(
         year: String,
       },
     ],
-    licenses: [
-      {
-        type: String,
-        number: String,
-        issueDate: Date,
-        expiryDate: Date,
-        authority: String,
-      },
-    ],
+    licenses: [licenseSchema],
     bio: { type: String },
   },
   { timestamps: true }
