@@ -6,7 +6,7 @@ import { ChevronDown, ClipboardList, FileText, LayoutDashboard, ListChecks, Pack
 import DoctorHome from '../Doctor/DoctorHome';
 import Appointments from '../Admin/Appointments';
 import Prescriptions from '../Admin/Prescriptions';
-import Patients from '../Admin/Patients';
+import PatientTable from '../Patient/PatientTable';
 import PatientForm from '../Patient/PatientForm';
 import Inventory from '../Doctor/Inventory';
 
@@ -64,7 +64,7 @@ const DoctorDashboard = () => {
       case 'prescriptions':
         return <Prescriptions />;
       case 'patients.list':
-        return <Patients />;
+        return <PatientTable />;
       case 'patients.add':
         return <PatientForm onSave={() => setCurrentView('patients.list')} />;
       case 'inventory':
