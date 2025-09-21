@@ -1,0 +1,53 @@
+/* Container */
+.preloader {
+  background: #0b0f1a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+}
+
+/* SVG sizing */
+.preloader svg {
+  width: 260px;
+  height: auto;
+}
+
+/* Heartbeat Animation */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.05); }
+  50% { transform: scale(1.1); }
+  75% { transform: scale(1.05); }
+}
+
+.heartbeat {
+  transform-origin: 50% 50%;
+  animation: heartbeat 1s infinite;
+}
+
+/* ECG Animation */
+.ecg {
+  stroke: #00ffea;
+  stroke-width: 2.5;
+  fill: none;
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: dash 1.5s linear infinite;
+  filter: drop-shadow(0 0 8px #00eaff);
+}
+
+@keyframes dash {
+  0% { stroke-dashoffset: 200; }
+  100% { stroke-dashoffset: -200; }
+}
+
+/* Text */
+.preloader h1 {
+  margin-top: 15px;
+  font-size: 40px;
+  font-family: "Poppins", sans-serif;
+  color: #00eaff;
+  text-shadow: 0 0 10px #00eaff, 0 0 20px #0077ff, 0 0 30px #00ffea;
+}
