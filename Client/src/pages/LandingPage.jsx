@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const LandingPage = () => {
   useEffect(() => {
@@ -30,18 +31,18 @@ const LandingPage = () => {
             <span className="text-xl font-bold text-white">HEALTH HUB</span>
           </div>
           <nav className="flex space-x-4 md:space-x-8 text-gray-400">
-            <a href="#" className="hover:text-white transition-colors">
+            <Link to="/" className="hover:text-white transition-colors">
               Homis
-            </a>
-            <a href="#" className="hover:text-white transition-colors">
+            </Link>
+            <Link to="/" className="hover:text-white transition-colors">
               Fhiacc
-            </a>
-            <a href="#" className="hover:text-white transition-colors">
+            </Link>
+            <Link to="/" className="hover:text-white transition-colors">
               Snbagt
-            </a>
-            <button className="px-4 py-2 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 active:scale-95 active:shadow-inner transition-transform">
-              SOAC / NONT
-            </button>
+            </Link>
+            <Link to="/admin" className="px-4 py-2 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 active:scale-95 active:shadow-inner transition-transform">
+              Admin
+            </Link>
           </nav>
         </header>
 
@@ -168,8 +169,8 @@ const LandingPage = () => {
               </svg>
               <p className="text-xl font-bold">LOGIN AS PATIENT</p>
               <p className="text-sm text-gray-400 mt-1">Manage Your Care</p>
-              <a
-                href="#"
+              <Link
+                to="/patient"
                 className="mt-4 text-green-400 hover:text-green-300 font-semibold flex items-center"
               >
                 <span className="mr-1">
@@ -186,7 +187,7 @@ const LandingPage = () => {
                     <polyline points="9 18 15 12 9 6" />
                   </svg>
                 </span>
-              </a>
+              </Link>
             </div>
           </div>
           {/* Doctor Card */}
@@ -204,8 +205,8 @@ const LandingPage = () => {
               </svg>
               <p className="text-xl font-bold">LOGIN AS DOCTOR</p>
               <p className="text-sm text-gray-400 mt-1">Streatime Workflows</p>
-              <a
-                href="#"
+              <Link
+                to="/doctor"
                 className="mt-4 text-blue-400 hover:text-blue-300 font-semibold flex items-center"
               >
                 <span className="mr-1">
@@ -222,7 +223,7 @@ const LandingPage = () => {
                     <polyline points="9 18 15 12 9 6" />
                   </svg>
                 </span>
-              </a>
+              </Link>
             </div>
           </div>
           {/* Admin Card */}
@@ -240,8 +241,8 @@ const LandingPage = () => {
               </svg>
               <p className="text-xl font-bold">LOGIN AS ADMIN</p>
               <p className="text-sm text-gray-400 mt-1">Oversve Operations</p>
-              <a
-                href="#"
+              <Link
+                to="/admin"
                 className="mt-4 text-purple-400 hover:text-purple-300 font-semibold flex items-center"
               >
                 <span className="mr-1">
@@ -258,7 +259,7 @@ const LandingPage = () => {
                     <polyline points="9 18 15 12 9 6" />
                   </svg>
                 </span>
-              </a>
+              </Link>
             </div>
           </div>
         </section>
