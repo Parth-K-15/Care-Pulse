@@ -5,6 +5,7 @@ import departmentRoutes from "./routes/departmentRoutes.js";
 import doctorRoutes from "./routes/doctorRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import staffRoutes from "./routes/staffRoutes.js";
+import patientRoutes from "./routes/patientRoutes.js";
 import cors from "cors";
 
 dotenv.config();
@@ -42,6 +43,8 @@ app.use("/api/doctors", doctorRoutes);
 app.use("/api/auth", authRoutes);
 
 app.use("/api/staff", staffRoutes);
+
+app.use("/api/patients", patientRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

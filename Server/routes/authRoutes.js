@@ -22,9 +22,13 @@ router.post("/sync", async (req, res) => {
     };
     if (role) update.role = role;
 
+    // Note: Avoid specifying the same path (e.g., 'role') in both $set and $setOnInsert to prevent
+    // MongoDB conflict errors like: "Updating the path 'role' would create a conflict at 'role'".
+    // On upsert, fields in $set apply to inserts as well, and equality fields from the filter (clerkId)
+    // are included in the inserted doc, so we only need clerkId in $setOnInsert.
     const user = await User.findOneAndUpdate(
       { clerkId },
-      { $set: update, $setOnInsert: { clerkId, ...(role ? { role } : {}) } },
+      { $set: update, $setOnInsert: { clerkId } },
       { new: true, upsert: true }
     );
 
