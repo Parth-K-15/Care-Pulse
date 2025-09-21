@@ -1,0 +1,9 @@
+Departmentlist 
+-> staff count
+-> total Departments
+->search
+
+
+DepartmentForm
+-> Assign staff
+

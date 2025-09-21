@@ -1,0 +1,10 @@
+Server/
+│── package.json
+│── app.js
+│── .env
+│── models/
+│   └── Department.js
+├── config/
+│   └── db.js
+└── routes/
+    └── departmentRoutes.js
