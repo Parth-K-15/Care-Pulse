@@ -84,31 +84,46 @@ export default function Appointments() {
       </div>
 
       <Tabs defaultValue="all" className="space-y-4">
-        <TabsList className="bg-gray-900 border-gray-800">
-          <TabsTrigger value="all" className="data-[state=active]:bg-gray-800 data-[state=active]:text-white">
+        <TabsList className="bg-black border border-gray-900">
+          <TabsTrigger 
+            value="all" 
+            className="text-gray-400 data-[state=active]:bg-blue-600 data-[state=active]:text-white"
+          >
             All Appointments
           </TabsTrigger>
-          <TabsTrigger value="add" className="data-[state=active]:bg-gray-800 data-[state=active]:text-white">
+          <TabsTrigger 
+            value="add" 
+            className="text-gray-400 data-[state=active]:bg-blue-600 data-[state=active]:text-white"
+          >
             Add Appointment
           </TabsTrigger>
         </TabsList>
 
         <TabsContent value="all" className="space-y-4">
-          <Card className="bg-gray-900 border-gray-800">
+          <Card className="bg-black border-gray-900">
             <CardHeader>
               <CardTitle className="text-white">Appointment Management</CardTitle>
             </CardHeader>
             <CardContent>
               {/* Nested Tabs for filtering */}
               <Tabs defaultValue="all-appointments" className="space-y-4">
-                <TabsList className="bg-gray-800 border-gray-700">
-                  <TabsTrigger value="all-appointments" className="data-[state=active]:bg-gray-700 data-[state=active]:text-white">
+                <TabsList className="bg-black border border-gray-900">
+                  <TabsTrigger 
+                    value="all-appointments" 
+                    className="text-gray-400 data-[state=active]:bg-blue-600 data-[state=active]:text-white"
+                  >
                     All Appointments
                   </TabsTrigger>
-                  <TabsTrigger value="completed" className="data-[state=active]:bg-gray-700 data-[state=active]:text-white">
+                  <TabsTrigger 
+                    value="completed" 
+                    className="text-gray-400 data-[state=active]:bg-blue-600 data-[state=active]:text-white"
+                  >
                     Completed
                   </TabsTrigger>
-                  <TabsTrigger value="cancelled" className="data-[state=active]:bg-gray-700 data-[state=active]:text-white">
+                  <TabsTrigger 
+                    value="cancelled" 
+                    className="text-gray-400 data-[state=active]:bg-blue-600 data-[state=active]:text-white"
+                  >
                     Cancelled
                   </TabsTrigger>
                 </TabsList>
@@ -116,7 +131,7 @@ export default function Appointments() {
                 <TabsContent value="all-appointments">
                   <Table>
                     <TableHeader>
-                      <TableRow className="border-gray-800">
+                      <TableRow className="border-gray-900">
                         <TableHead className="text-gray-300">Patient</TableHead>
                         <TableHead className="text-gray-300">Doctor</TableHead>
                         <TableHead className="text-gray-300">Date & Time</TableHead>
@@ -128,12 +143,12 @@ export default function Appointments() {
                     </TableHeader>
                     <TableBody>
                       {filterAppointments('all').map((appointment) => (
-                        <TableRow key={appointment.id} className="border-gray-800">
+                        <TableRow key={appointment.id} className="border-gray-900">
                           <TableCell className="text-white">
                             <div className="flex items-center space-x-3">
                               <Avatar className="h-8 w-8">
                                 <AvatarImage src={appointment.patient.avatar} alt={appointment.patient.name} />
-                                <AvatarFallback className="bg-gray-700 text-white">
+                                <AvatarFallback className="bg-black text-white">
                                   {appointment.patient.name.split(' ').map(n => n[0]).join('')}
                                 </AvatarFallback>
                               </Avatar>
@@ -152,14 +167,14 @@ export default function Appointments() {
                                   <MoreVertical className="h-4 w-4" />
                                 </Button>
                               </DropdownMenuTrigger>
-                              <DropdownMenuContent align="end" className="bg-gray-900 border-gray-800">
-                                <DropdownMenuItem className="text-gray-300 hover:bg-gray-800 hover:text-white">
+                              <DropdownMenuContent align="end" className="bg-black border-gray-900">
+                                <DropdownMenuItem className="text-gray-300 hover:bg-black hover:text-white">
                                   View Details
                                 </DropdownMenuItem>
-                                <DropdownMenuItem className="text-gray-300 hover:bg-gray-800 hover:text-white">
+                                <DropdownMenuItem className="text-gray-300 hover:bg-black hover:text-white">
                                   Edit Appointment
                                 </DropdownMenuItem>
-                                <DropdownMenuItem className="text-gray-300 hover:bg-gray-800 hover:text-white">
+                                <DropdownMenuItem className="text-gray-300 hover:bg-black hover:text-white">
                                   Cancel Appointment
                                 </DropdownMenuItem>
                               </DropdownMenuContent>
@@ -174,7 +189,7 @@ export default function Appointments() {
                 <TabsContent value="completed">
                   <Table>
                     <TableHeader>
-                      <TableRow className="border-gray-800">
+                      <TableRow className="border-gray-900">
                         <TableHead className="text-gray-300">Patient</TableHead>
                         <TableHead className="text-gray-300">Doctor</TableHead>
                         <TableHead className="text-gray-300">Date & Time</TableHead>
@@ -184,12 +199,12 @@ export default function Appointments() {
                     </TableHeader>
                     <TableBody>
                       {filterAppointments('completed').map((appointment) => (
-                        <TableRow key={appointment.id} className="border-gray-800">
+                        <TableRow key={appointment.id} className="border-gray-900">
                           <TableCell className="text-white">
                             <div className="flex items-center space-x-3">
                               <Avatar className="h-8 w-8">
                                 <AvatarImage src={appointment.patient.avatar} alt={appointment.patient.name} />
-                                <AvatarFallback className="bg-gray-700 text-white">
+                                <AvatarFallback className="bg-black text-white">
                                   {appointment.patient.name.split(' ').map(n => n[0]).join('')}
                                 </AvatarFallback>
                               </Avatar>
@@ -209,7 +224,7 @@ export default function Appointments() {
                 <TabsContent value="cancelled">
                   <Table>
                     <TableHeader>
-                      <TableRow className="border-gray-800">
+                      <TableRow className="border-gray-900">
                         <TableHead className="text-gray-300">Patient</TableHead>
                         <TableHead className="text-gray-300">Doctor</TableHead>
                         <TableHead className="text-gray-300">Date & Time</TableHead>
@@ -219,12 +234,12 @@ export default function Appointments() {
                     </TableHeader>
                     <TableBody>
                       {filterAppointments('cancelled').map((appointment) => (
-                        <TableRow key={appointment.id} className="border-gray-800">
+                        <TableRow key={appointment.id} className="border-gray-900">
                           <TableCell className="text-white">
                             <div className="flex items-center space-x-3">
                               <Avatar className="h-8 w-8">
                                 <AvatarImage src={appointment.patient.avatar} alt={appointment.patient.name} />
-                                <AvatarFallback className="bg-gray-700 text-white">
+                                <AvatarFallback className="bg-black text-white">
                                   {appointment.patient.name.split(' ').map(n => n[0]).join('')}
                                 </AvatarFallback>
                               </Avatar>
@@ -246,7 +261,7 @@ export default function Appointments() {
         </TabsContent>
 
         <TabsContent value="add" className="space-y-4">
-          <Card className="bg-gray-900 border-gray-800">
+          <Card className="bg-black border-gray-900">
             <CardHeader>
               <CardTitle className="text-white">Schedule New Appointment</CardTitle>
             </CardHeader>
@@ -260,14 +275,14 @@ export default function Appointments() {
                     <div className="space-y-2">
                       <label className="text-sm font-medium text-gray-300">Appointment Type</label>
                       <Select>
-                        <SelectTrigger className="bg-transparent border-gray-700 text-white">
+                        <SelectTrigger className="bg-transparent border-gray-900 text-white">
                           <SelectValue placeholder="Select appointment type" />
                         </SelectTrigger>
-                        <SelectContent className="bg-gray-900 border-gray-800">
-                          <SelectItem value="consultation" className="text-gray-300 hover:bg-gray-800">Consultation</SelectItem>
-                          <SelectItem value="follow-up" className="text-gray-300 hover:bg-gray-800">Follow-up</SelectItem>
-                          <SelectItem value="emergency" className="text-gray-300 hover:bg-gray-800">Emergency</SelectItem>
-                          <SelectItem value="surgery" className="text-gray-300 hover:bg-gray-800">Surgery</SelectItem>
+                        <SelectContent className="bg-black border-gray-900">
+                          <SelectItem value="consultation" className="text-gray-300 hover:bg-black">Consultation</SelectItem>
+                          <SelectItem value="follow-up" className="text-gray-300 hover:bg-black">Follow-up</SelectItem>
+                          <SelectItem value="emergency" className="text-gray-300 hover:bg-black">Emergency</SelectItem>
+                          <SelectItem value="surgery" className="text-gray-300 hover:bg-black">Surgery</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -276,16 +291,16 @@ export default function Appointments() {
                       <div className="space-y-2">
                         <label className="text-sm font-medium text-gray-300">Time</label>
                         <Select>
-                          <SelectTrigger className="bg-transparent border-gray-700 text-white">
+                          <SelectTrigger className="bg-transparent border-gray-900 text-white">
                             <SelectValue placeholder="Select time" />
                           </SelectTrigger>
-                          <SelectContent className="bg-gray-900 border-gray-800">
-                            <SelectItem value="09:00" className="text-gray-300 hover:bg-gray-800">9:00 AM</SelectItem>
-                            <SelectItem value="10:00" className="text-gray-300 hover:bg-gray-800">10:00 AM</SelectItem>
-                            <SelectItem value="11:00" className="text-gray-300 hover:bg-gray-800">11:00 AM</SelectItem>
-                            <SelectItem value="14:00" className="text-gray-300 hover:bg-gray-800">2:00 PM</SelectItem>
-                            <SelectItem value="15:00" className="text-gray-300 hover:bg-gray-800">3:00 PM</SelectItem>
-                            <SelectItem value="16:00" className="text-gray-300 hover:bg-gray-800">4:00 PM</SelectItem>
+                          <SelectContent className="bg-black border-gray-900">
+                            <SelectItem value="09:00" className="text-gray-300 hover:bg-black">9:00 AM</SelectItem>
+                            <SelectItem value="10:00" className="text-gray-300 hover:bg-black">10:00 AM</SelectItem>
+                            <SelectItem value="11:00" className="text-gray-300 hover:bg-black">11:00 AM</SelectItem>
+                            <SelectItem value="14:00" className="text-gray-300 hover:bg-black">2:00 PM</SelectItem>
+                            <SelectItem value="15:00" className="text-gray-300 hover:bg-black">3:00 PM</SelectItem>
+                            <SelectItem value="16:00" className="text-gray-300 hover:bg-black">4:00 PM</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -293,14 +308,14 @@ export default function Appointments() {
                       <div className="space-y-2">
                         <label className="text-sm font-medium text-gray-300">Duration</label>
                         <Select>
-                          <SelectTrigger className="bg-transparent border-gray-700 text-white">
+                          <SelectTrigger className="bg-transparent border-gray-900 text-white">
                             <SelectValue placeholder="Select duration" />
                           </SelectTrigger>
-                          <SelectContent className="bg-gray-900 border-gray-800">
-                            <SelectItem value="15" className="text-gray-300 hover:bg-gray-800">15 minutes</SelectItem>
-                            <SelectItem value="30" className="text-gray-300 hover:bg-gray-800">30 minutes</SelectItem>
-                            <SelectItem value="45" className="text-gray-300 hover:bg-gray-800">45 minutes</SelectItem>
-                            <SelectItem value="60" className="text-gray-300 hover:bg-gray-800">1 hour</SelectItem>
+                          <SelectContent className="bg-black border-gray-900">
+                            <SelectItem value="15" className="text-gray-300 hover:bg-black">15 minutes</SelectItem>
+                            <SelectItem value="30" className="text-gray-300 hover:bg-black">30 minutes</SelectItem>
+                            <SelectItem value="45" className="text-gray-300 hover:bg-black">45 minutes</SelectItem>
+                            <SelectItem value="60" className="text-gray-300 hover:bg-black">1 hour</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -312,19 +327,19 @@ export default function Appointments() {
                         <PopoverTrigger asChild>
                           <Button
                             variant="outline"
-                            className="w-full justify-start text-left font-normal bg-transparent border-gray-700 text-white hover:bg-gray-800"
+                            className="w-full justify-start text-left font-normal bg-transparent border-gray-900 text-white hover:bg-black"
                           >
                             <CalendarIcon className="mr-2 h-4 w-4" />
                             {date ? format(date, "PPP") : <span className="text-gray-500">Pick a date</span>}
                           </Button>
                         </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0 bg-gray-900 border-gray-800" align="start">
+                        <PopoverContent className="w-auto p-0 bg-black border-gray-900" align="start">
                           <Calendar
                             mode="single"
                             selected={date}
                             onSelect={setDate}
                             initialFocus
-                            className="bg-gray-900 text-white"
+                            className="bg-black text-white"
                           />
                         </PopoverContent>
                       </Popover>
@@ -334,7 +349,7 @@ export default function Appointments() {
                       <label className="text-sm font-medium text-gray-300">Reason for Visit</label>
                       <Textarea 
                         placeholder="Enter reason for appointment"
-                        className="bg-transparent border-gray-700 text-white placeholder:text-gray-500"
+                        className="bg-transparent border-gray-900 text-white placeholder:text-gray-500"
                         rows={3}
                       />
                     </div>
@@ -343,11 +358,11 @@ export default function Appointments() {
                       <label className="text-sm font-medium text-gray-300">Appointment Status</label>
                       <RadioGroup value={appointmentStatus} onValueChange={setAppointmentStatus}>
                         <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="scheduled" id="scheduled" className="border-gray-700 text-blue-600" />
+                          <RadioGroupItem value="scheduled" id="scheduled" className="border-gray-900 text-blue-600" />
                           <label htmlFor="scheduled" className="text-gray-300 text-sm">Scheduled</label>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="confirmed" id="confirmed" className="border-gray-700 text-blue-600" />
+                          <RadioGroupItem value="confirmed" id="confirmed" className="border-gray-900 text-blue-600" />
                           <label htmlFor="confirmed" className="text-gray-300 text-sm">Confirmed</label>
                         </div>
                       </RadioGroup>
@@ -359,7 +374,7 @@ export default function Appointments() {
                 <div className="space-y-6">
                   <h3 className="text-lg font-semibold text-white">Patient & Doctor Selection</h3>
                   
-                  <Card className="bg-gray-800 border-gray-700">
+                  <Card className="bg-black border-gray-900">
                     <CardHeader>
                       <CardTitle className="text-white text-base">Select Patient</CardTitle>
                     </CardHeader>
@@ -368,7 +383,7 @@ export default function Appointments() {
                         <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                         <Input 
                           placeholder="Search patients..."
-                          className="pl-9 bg-transparent border-gray-600 text-white placeholder:text-gray-500"
+                          className="pl-9 bg-transparent border-gray-900 text-white placeholder:text-gray-500"
                         />
                       </div>
                       <div className="text-sm text-gray-400">
@@ -377,26 +392,26 @@ export default function Appointments() {
                     </CardContent>
                   </Card>
 
-                  <Card className="bg-gray-800 border-gray-700">
+                  <Card className="bg-black border-gray-900">
                     <CardHeader>
                       <CardTitle className="text-white text-base">Select Doctor</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <Select>
-                        <SelectTrigger className="bg-transparent border-gray-600 text-white">
+                        <SelectTrigger className="bg-transparent border-gray-900 text-white">
                           <SelectValue placeholder="Choose doctor" />
                         </SelectTrigger>
-                        <SelectContent className="bg-gray-900 border-gray-800">
-                          <SelectItem value="dr-johnson" className="text-gray-300 hover:bg-gray-800">
+                        <SelectContent className="bg-black border-gray-900">
+                          <SelectItem value="dr-johnson" className="text-gray-300 hover:bg-black">
                             Dr. Sarah Johnson - Cardiology
                           </SelectItem>
-                          <SelectItem value="dr-chen" className="text-gray-300 hover:bg-gray-800">
+                          <SelectItem value="dr-chen" className="text-gray-300 hover:bg-black">
                             Dr. Michael Chen - Neurology
                           </SelectItem>
-                          <SelectItem value="dr-davis" className="text-gray-300 hover:bg-gray-800">
+                          <SelectItem value="dr-davis" className="text-gray-300 hover:bg-black">
                             Dr. Emily Davis - Pediatrics
                           </SelectItem>
-                          <SelectItem value="dr-wilson" className="text-gray-300 hover:bg-gray-800">
+                          <SelectItem value="dr-wilson" className="text-gray-300 hover:bg-black">
                             Dr. James Wilson - Orthopedics
                           </SelectItem>
                         </SelectContent>
@@ -407,8 +422,8 @@ export default function Appointments() {
               </div>
 
               {/* Form Footer */}
-              <div className="flex justify-end space-x-4 pt-6 mt-6 border-t border-gray-800">
-                <Button variant="outline" className="border-gray-700 text-gray-300 hover:bg-gray-800">
+              <div className="flex justify-end space-x-4 pt-6 mt-6 border-t border-gray-900">
+                <Button variant="outline" className="border-gray-900 text-gray-300 hover:bg-black">
                   Cancel
                 </Button>
                 <Button className="bg-blue-600 hover:bg-blue-700">
