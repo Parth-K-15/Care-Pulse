@@ -10,7 +10,6 @@ import DoctorList from "../Doctor/DoctorList";
 import DoctorForm from "../Doctor/DoctorForm";
 import StaffList from "../Staff/StaffList";
 import StaffForm from "../Staff/StaffForm";
-import UserRequest from "../Admin/UserRequest";
 import { Button } from "../../components/ui/button";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Building2, Users, ChevronDown, UserCheck } from "lucide-react";
@@ -46,7 +45,6 @@ export default function AdminDashboard() {
 
   const adminMenuItems = [
     { id: "dashboard", label: "Dashboard", icon: "📊" },
-    { id: "userrequest", label: "User Requests", icon: "👥" },
     { id: "doctors", label: "Doctors", icon: "🩺" },
     { id: "patients", label: "Patients", icon: "�" },
     { id: "appointments", label: "Appointments", icon: "📅" },
@@ -57,8 +55,6 @@ export default function AdminDashboard() {
     switch (currentView) {
       case "dashboard":
         return <Dashboard />;
-      case "userrequest":
-        return <UserRequest />;
       case "doctors":
         return <Doctors />;
       case "patients":
