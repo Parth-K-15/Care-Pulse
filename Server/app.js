@@ -13,7 +13,7 @@ const app = express();
 // ✅ Enable CORS
 app.use(
   cors({
-    origin: "http://localhost:5173", // React frontend
+    origin: ["http://localhost:5173", "http://localhost:5174"], // React frontend (multiple ports)
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
