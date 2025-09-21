@@ -54,10 +54,13 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
   };
 
   const handleLanguageChange = (e) => {
-    const languages = e.target.value.split(',').map(lang => lang.trim()).filter(lang => lang);
-    setProfessionalInfo(prev => ({
+    const languages = e.target.value
+      .split(",")
+      .map((lang) => lang.trim())
+      .filter((lang) => lang);
+    setProfessionalInfo((prev) => ({
       ...prev,
-      languages
+      languages,
     }));
   };
 
@@ -101,12 +104,19 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
 
   const handleSave = async () => {
     try {
-      const doctorData = { ...personalInfo, ...professionalInfo };
-      
-      const url = initialData 
+      const doctorData = {
+        ...personalInfo,
+        ...professionalInfo,
+        dob: personalInfo.dob ? new Date(personalInfo.dob) : null,
+        licenseExpiry: professionalInfo.licenseExpiry
+          ? new Date(professionalInfo.licenseExpiry)
+          : null,
+      };
+
+      const url = initialData
         ? `http://localhost:5000/api/doctors/${initialData._id}`
         : "http://localhost:5000/api/doctors";
-      
+
       const method = initialData ? "PUT" : "POST";
 
       const response = await fetch(url, {
@@ -117,9 +127,13 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
 
       const data = await response.json();
       if (response.ok) {
-        alert(initialData ? "Doctor updated successfully!" : "Doctor saved successfully!");
+        alert(
+          initialData
+            ? "Doctor updated successfully!"
+            : "Doctor saved successfully!"
+        );
         if (onSave) onSave();
-        handleCancel(); // Reset form
+        handleCancel(); // reset form
       } else {
         alert("Error: " + data.message);
       }
@@ -135,11 +149,23 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
       <div className="mb-8">
         <div className="flex items-center justify-center">
           <div className="flex items-center w-full max-w-md">
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step >= 1 ? 'bg-blue-600 text-white' : 'bg-gray-300'}`}>
+            <div
+              className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                step >= 1 ? "bg-blue-600 text-white" : "bg-gray-300"
+              }`}
+            >
               1
             </div>
-            <div className={`flex-1 h-1 mx-2 ${step >= 2 ? 'bg-blue-600' : 'bg-gray-300'}`}></div>
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step >= 2 ? 'bg-blue-600 text-white' : 'bg-gray-300'}`}>
+            <div
+              className={`flex-1 h-1 mx-2 ${
+                step >= 2 ? "bg-blue-600" : "bg-gray-300"
+              }`}
+            ></div>
+            <div
+              className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                step >= 2 ? "bg-blue-600 text-white" : "bg-gray-300"
+              }`}
+            >
               2
             </div>
           </div>
@@ -152,10 +178,14 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
 
       {step === 1 && (
         <div>
-          <h2 className="text-2xl font-semibold mb-6 text-center">Personal Information</h2>
+          <h2 className="text-2xl font-semibold mb-6 text-center">
+            Personal Information
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                First Name *
+              </label>
               <input
                 type="text"
                 name="firstName"
@@ -167,7 +197,9 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Last Name *
+              </label>
               <input
                 type="text"
                 name="lastName"
@@ -179,7 +211,9 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Date of Birth</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Date of Birth
+              </label>
               <input
                 type="date"
                 name="dob"
@@ -189,7 +223,9 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Gender</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Gender
+              </label>
               <select
                 name="gender"
                 value={personalInfo.gender}
@@ -203,7 +239,9 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
               </select>
             </div>
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">Address</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Address
+              </label>
               <input
                 type="text"
                 name="address"
@@ -214,7 +252,9 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">City</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                City
+              </label>
               <input
                 type="text"
                 name="city"
@@ -225,7 +265,9 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">State</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                State
+              </label>
               <input
                 type="text"
                 name="state"
@@ -236,7 +278,9 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Zip Code</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Zip Code
+              </label>
               <input
                 type="text"
                 name="zip"
@@ -247,7 +291,9 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Email *
+              </label>
               <input
                 type="email"
                 name="email"
@@ -259,7 +305,9 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Phone Number *
+              </label>
               <input
                 type="text"
                 name="phone"
@@ -271,7 +319,9 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Emergency Contact Name</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Emergency Contact Name
+              </label>
               <input
                 type="text"
                 name="emergencyContactName"
@@ -282,7 +332,9 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Emergency Contact Phone</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Emergency Contact Phone
+              </label>
               <input
                 type="text"
                 name="emergencyContactPhone"
@@ -293,7 +345,9 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
               />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">Profile Photo</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Profile Photo
+              </label>
               <input
                 type="file"
                 name="profilePhoto"
@@ -322,10 +376,14 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
 
       {step === 2 && (
         <div>
-          <h2 className="text-2xl font-semibold mb-6 text-center">Professional Details</h2>
+          <h2 className="text-2xl font-semibold mb-6 text-center">
+            Professional Details
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Primary Specialization *</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Primary Specialization *
+              </label>
               <select
                 name="primarySpecialization"
                 value={professionalInfo.primarySpecialization}
@@ -356,7 +414,9 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Secondary Specialization</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Secondary Specialization
+              </label>
               <select
                 name="secondarySpecialization"
                 value={professionalInfo.secondarySpecialization}
@@ -386,7 +446,9 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Medical License Number *</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Medical License Number *
+              </label>
               <input
                 type="text"
                 name="licenseNumber"
@@ -398,7 +460,9 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">License Expiry Date</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                License Expiry Date
+              </label>
               <input
                 type="date"
                 name="licenseExpiry"
@@ -408,7 +472,9 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Years of Experience *</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Years of Experience *
+              </label>
               <input
                 type="number"
                 name="experience"
@@ -421,7 +487,9 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Status</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Status
+              </label>
               <select
                 name="status"
                 value={professionalInfo.status}
@@ -434,7 +502,9 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Department</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Department
+              </label>
               <select
                 name="department"
                 value={professionalInfo.department}
@@ -450,7 +520,9 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Position</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Position
+              </label>
               <select
                 name="position"
                 value={professionalInfo.position}
@@ -472,7 +544,9 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Patient Count</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Patient Count
+              </label>
               <input
                 type="number"
                 name="patientCount"
@@ -484,7 +558,9 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Consultation Fee ($)</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Consultation Fee ($)
+              </label>
               <input
                 type="number"
                 name="consultationFee"
@@ -496,18 +572,22 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
               />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">Languages (comma-separated)</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Languages (comma-separated)
+              </label>
               <input
                 type="text"
                 name="languages"
-                value={professionalInfo.languages.join(', ')}
+                value={professionalInfo.languages.join(", ")}
                 onChange={handleLanguageChange}
                 placeholder="English, Spanish, French"
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Qualifications</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Qualifications
+              </label>
               <input
                 type="text"
                 name="qualifications"
@@ -518,7 +598,9 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Education</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Education
+              </label>
               <input
                 type="text"
                 name="education"
@@ -529,7 +611,9 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
               />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">Certifications</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Certifications
+              </label>
               <input
                 type="text"
                 name="certifications"
@@ -540,7 +624,9 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
               />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">About Me</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                About Me
+              </label>
               <textarea
                 name="aboutMe"
                 value={professionalInfo.aboutMe}
@@ -569,7 +655,7 @@ const DoctorForm = ({ departments, onSave, initialData = null }) => {
                 onClick={handleSave}
                 className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
               >
-                {initialData ? 'Update Doctor' : 'Save Doctor'}
+                {initialData ? "Update Doctor" : "Save Doctor"}
               </button>
             </div>
           </div>
