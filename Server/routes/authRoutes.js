@@ -18,13 +18,13 @@ router.post("/sync", async (req, res) => {
       firstName,
       lastName,
       imageUrl,
-      role: role || "pending", // Default to pending for new users
       lastLoginAt: new Date(),
     };
+    if (role) update.role = role;
 
     const user = await User.findOneAndUpdate(
       { clerkId },
-      { $set: update, $setOnInsert: { clerkId } },
+      { $set: update, $setOnInsert: { clerkId, ...(role ? { role } : {}) } },
       { new: true, upsert: true }
     );
 
@@ -45,75 +45,6 @@ router.get("/me", async (req, res) => {
     res.json(user);
   } catch (err) {
     res.status(500).json({ message: err.message });
-  }
-});
-
-// Get all pending admin requests
-// GET /api/auth/requests
-router.get("/requests", async (req, res) => {
-  try {
-    const users = await User.find()
-      .sort({ createdAt: -1 })
-      .select("-__v");
-    
-    res.json({ 
-      success: true, 
-      users,
-      count: users.length 
-    });
-  } catch (err) {
-    console.error("/api/auth/requests error:", err);
-    res.status(500).json({ 
-      success: false, 
-      message: "Failed to fetch user requests", 
-      error: err.message 
-    });
-  }
-});
-
-// Approve pending admin
-// PATCH /api/auth/approve/:id
-router.patch("/approve/:id", async (req, res) => {
-  try {
-    const user = await User.findByIdAndUpdate(
-      req.params.id,
-      {
-        role: "admin",
-        approvedAt: new Date()
-      },
-      { new: true, runValidators: true }
-    ).select("-__v");
-
-    if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: "User not found"
-      });
-    }
-
-    res.json({
-      success: true,
-      message: "User approved successfully",
-      user
-    });
-  } catch (err) {
-    console.error("/api/auth/approve error:", err);
-    res.status(500).json({
-      success: false,
-      message: "Failed to approve user",
-      error: err.message
-    });
-  }
-});
-
-// Get pending requests count
-// GET /api/auth/pending/count
-router.get("/pending/count", async (req, res) => {
-  try {
-    const count = await User.countDocuments({ role: "pending" });
-    res.json({ success: true, count });
-  } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
   }
 });
 
