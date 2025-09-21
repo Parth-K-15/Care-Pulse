@@ -5,7 +5,7 @@ const doctorSchema = new mongoose.Schema(
     // Personal Information
     firstName: { type: String, required: true, trim: true },
     lastName: { type: String, required: true, trim: true },
-    dob: { type: Date }, // store as Date
+    dob: { type: Date },
     gender: { type: String, enum: ["Male", "Female", "Other"] },
     address: { type: String },
     city: { type: String },
@@ -15,7 +15,7 @@ const doctorSchema = new mongoose.Schema(
     phone: { type: String, required: true },
     emergencyContactName: { type: String },
     emergencyContactPhone: { type: String },
-    profilePhoto: { type: String }, // filename or URL
+    profilePhoto: { type: String }, // just store filename if uploaded
 
     // Professional Details
     primarySpecialization: { type: String, required: true },
@@ -27,18 +27,15 @@ const doctorSchema = new mongoose.Schema(
     education: { type: String },
     certifications: { type: String },
     department: { type: String },
-    position: {
-      type: String,
-      enum: ["Department Head", "Senior Doctor", "Specialist", "Resident", "Intern"],
-    },
-
-    // Status & Activity
+    position: { type: String, enum: ["Department Head", "Senior Doctor", "Specialist", "Resident", "Intern"] },
+    
+    // Status and Activity
     status: { type: String, enum: ["Active", "Inactive", "On Leave"], default: "Active" },
     patientCount: { type: Number, default: 0 },
-    isAvailable: { type: Boolean, default: true },
     lastActiveDate: { type: Date, default: Date.now },
-
-    // Additional Info
+    isAvailable: { type: Boolean, default: true },
+    
+    // Additional Professional Information
     consultationFee: { type: Number },
     workingHours: {
       monday: { start: String, end: String },
@@ -47,7 +44,7 @@ const doctorSchema = new mongoose.Schema(
       thursday: { start: String, end: String },
       friday: { start: String, end: String },
       saturday: { start: String, end: String },
-      sunday: { start: String, end: String },
+      sunday: { start: String, end: String }
     },
     languages: [{ type: String }],
     aboutMe: { type: String },

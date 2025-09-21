@@ -3,8 +3,6 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import departmentRoutes from "./routes/departmentRoutes.js";
 import doctorRoutes from "./routes/doctorRoutes.js";
-import authRoutes from "./routes/authRoutes.js";
-import staffRoutes from "./routes/staffRoutes.js";
 import cors from "cors";
 
 dotenv.config();
@@ -15,15 +13,8 @@ const app = express();
 // ✅ Enable CORS
 app.use(
   cors({
-    origin: "http://localhost:5173",
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-    allowedHeaders: [
-      "Content-Type",
-      "Authorization",
-      "X-Requested-With",
-      "Clerk-Session-Id",
-      "Clerk-Redirect-Url"
-    ],
+    origin: ["http://localhost:5173", "http://localhost:5174"], // React frontend (multiple ports)
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
@@ -38,10 +29,6 @@ app.get("/", (req, res) => {
 app.use("/api/departments", departmentRoutes);
 // Doctor routes
 app.use("/api/doctors", doctorRoutes);
-// Auth/User routes
-app.use("/api/auth", authRoutes);
-
-app.use("/api/staff", staffRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
