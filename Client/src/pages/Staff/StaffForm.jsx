@@ -54,7 +54,7 @@ const StaffForm = ({ onSave, initialData = null }) => {
       { degree: "", institution: "", year: "" },
     ],
     licenses: initialData?.licenses || [
-      { type: "", number: "", issueDate: "", expiryDate: "", authority: "" },
+      { licenseType: "", number: "", issueDate: "", expiryDate: "", authority: "" },
     ],
     bio: initialData?.bio || "",
   });
@@ -102,7 +102,7 @@ const StaffForm = ({ onSave, initialData = null }) => {
       ...prev,
       licenses: [
         ...prev.licenses,
-        { type: "", number: "", issueDate: "", expiryDate: "", authority: "" },
+        { licenseType: "", number: "", issueDate: "", expiryDate: "", authority: "" },
       ],
     }));
   };
@@ -110,58 +110,21 @@ const StaffForm = ({ onSave, initialData = null }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Create FormData instance
-    const formDataToSend = new FormData();
-
-    // Append all fields
-    formDataToSend.append("firstName", formData.firstName);
-    formDataToSend.append("lastName", formData.lastName);
-    formDataToSend.append("dob", formData.dob);
-    formDataToSend.append("gender", formData.gender);
-    formDataToSend.append("email", formData.email);
-    formDataToSend.append("phone", formData.phone);
-    formDataToSend.append("address", formData.address);
-    formDataToSend.append("city", formData.city);
-    formDataToSend.append("state", formData.state);
-    formDataToSend.append("postalCode", formData.postalCode);
-    formDataToSend.append("country", formData.country);
-
-    // Emergency Contact (nested object)
-    formDataToSend.append(
-      "emergencyContact[name]",
-      formData.emergencyContact.name
-    );
-    formDataToSend.append(
-      "emergencyContact[phone]",
-      formData.emergencyContact.phone
-    );
-    formDataToSend.append(
-      "emergencyContact[relation]",
-      formData.emergencyContact.relation
-    );
-
-    // Professional info
-    formDataToSend.append("profession", formData.profession);
-    formDataToSend.append("specialization", formData.specialization);
-    formDataToSend.append("bio", formData.bio);
-
-    // Append arrays as JSON strings
-    formDataToSend.append(
-      "qualifications",
-      JSON.stringify(formData.qualifications)
-    );
-    formDataToSend.append("licenses", JSON.stringify(formData.licenses));
-
-    // Append photo file if exists
-    if (formData.photo) {
-      formDataToSend.append("photo", formData.photo);
-    }
+    // Prepare data (skip photo)
+    const dataToSend = { ...formData };
+    delete dataToSend.photo; // remove photo if not storing
 
     try {
       const response = await fetch("http://localhost:5000/api/staff", {
         method: "POST",
-        body: formDataToSend, // no Content-Type header needed; browser sets it automatically
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dataToSend), // send objects/arrays directly
       });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to add staff");
+      }
 
       const data = await response.json();
       console.log("Staff added:", data);
@@ -615,9 +578,9 @@ const StaffForm = ({ onSave, initialData = null }) => {
                       <Input
                         type="text"
                         placeholder="e.g. RN License"
-                        value={license.type}
+                        value={license.licenseType}
                         onChange={(e) =>
-                          handleLicenseChange(index, "type", e.target.value)
+                          handleLicenseChange(index, "licenseType", e.target.value)
                         }
                         className="bg-gray-800/50 border-gray-700 text-white placeholder-gray-500 focus:border-gray-600 focus:ring-gray-600 h-12"
                       />
