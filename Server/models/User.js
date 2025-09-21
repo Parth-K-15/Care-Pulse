@@ -8,15 +8,13 @@ const userSchema = new mongoose.Schema(
     firstName: { type: String },
     lastName: { type: String },
     imageUrl: { type: String },
-    role: { type: String, enum: ["pending", "admin", "doctor", "patient"], default: "pending", index: true },
-    approvedAt: { type: Date },
+    role: { type: String, enum: ["admin", "doctor", "patient"], default: "admin", index: true },
     lastLoginAt: { type: Date },
   },
   { timestamps: true }
 );
 
 userSchema.index({ email: 1, clerkId: 1 });
-userSchema.index({ role: 1, createdAt: -1 });
 
 const User = mongoose.model("User", userSchema);
 export default User;
