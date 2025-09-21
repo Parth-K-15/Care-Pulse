@@ -1,0 +1,21 @@
+└── 📁 src/
+    ├── 📄 App.css
+    ├── 📄 App.jsx
+    ├── 📄 index.css
+    ├── 📄 main.jsx
+    ├── 📁 assets/
+    │   └── 📄 react.svg
+    ├── 📁 components/
+    │   └── 📁 ui/
+    │       ├── 📄 button.jsx
+    │       ├── 📄 checkbox.jsx
+    │       ├── 📄 input.jsx
+    │       ├── 📄 select.jsx
+    │       └── 📄 textarea.jsx
+    ├── 📁 lib/
+    │   └── 📄 utils.js
+    └── 📁 pages/
+        └── 📁 Department/
+            ├── 📄 DepartmentForm.jsx
+            ├── 📄 DepartmentList.jsx
+            └── 📄 pending.txt
