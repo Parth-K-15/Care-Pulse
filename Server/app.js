@@ -5,6 +5,8 @@ import departmentRoutes from "./routes/departmentRoutes.js";
 import doctorRoutes from "./routes/doctorRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import staffRoutes from "./routes/staffRoutes.js";
+import geminiRoutes from "./routes/geminiRoutes.js";
+import aiDoctorRoutes from "./routes/aiDoctorRoutes.js";
 import cors from "cors";
 
 dotenv.config();
@@ -15,7 +17,7 @@ const app = express();
 // ✅ Enable CORS
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173", "http://localhost:5174"],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     allowedHeaders: [
       "Content-Type",
@@ -41,7 +43,11 @@ app.use("/api/doctors", doctorRoutes);
 // Auth/User routes
 app.use("/api/auth", authRoutes);
 
+
 app.use("/api/staff", staffRoutes);
+app.use("/api/ai-doctor", aiDoctorRoutes);
+// Gemini proxy route
+app.use("/api/gemini", geminiRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
