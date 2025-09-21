@@ -8,6 +8,7 @@ import Patients from "./pages/Admin/Patients";
 import Appointments from "./pages/Admin/Appointments";
 import Prescriptions from "./pages/Admin/Prescriptions";
 import PatientDashboard from "./pages/Patient/PatientDashboard";
+import DoctorDashboard from "./pages/Doctor/DoctorDashboard";
 import { Button } from "./components/ui/button";
 import {
   SignedIn,
@@ -20,7 +21,7 @@ import {
 function App() {
   const [loading, setLoading] = useState(true);
   const [currentView, setCurrentView] = useState("dashboard");
-  const [userType, setUserType] = useState("admin"); // "admin" or "patient"
+  const [userType, setUserType] = useState("admin"); // "admin", "patient", or "doctor"
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -49,6 +50,13 @@ function App() {
   const renderPage = () => {
     if (userType === "patient") {
       return <PatientDashboard onSwitchToAdmin={() => setUserType("admin")} />;
+    }
+    
+    if (userType === "doctor") {
+      return <DoctorDashboard 
+        onSwitchToAdmin={() => setUserType("admin")} 
+        onSwitchToPatient={() => setUserType("patient")} 
+      />;
     }
     
     switch (currentView) {
@@ -80,11 +88,11 @@ function App() {
               {/* User Type Selection */}
               <div className="mb-6">
                 <p className="text-gray-300 mb-4">Select your login type:</p>
-                <div className="flex space-x-4">
+                <div className="grid grid-cols-3 gap-3">
                   <Button
                     onClick={() => setUserType("admin")}
                     variant={userType === "admin" ? "default" : "outline"}
-                    className={`flex-1 ${userType === "admin" 
+                    className={`${userType === "admin" 
                       ? "bg-blue-600 hover:bg-blue-700" 
                       : "border-gray-700 text-gray-300 hover:bg-gray-800"
                     }`}
@@ -92,9 +100,19 @@ function App() {
                     Admin
                   </Button>
                   <Button
+                    onClick={() => setUserType("doctor")}
+                    variant={userType === "doctor" ? "default" : "outline"}
+                    className={`${userType === "doctor" 
+                      ? "bg-blue-600 hover:bg-blue-700" 
+                      : "border-gray-700 text-gray-300 hover:bg-gray-800"
+                    }`}
+                  >
+                    Doctor
+                  </Button>
+                  <Button
                     onClick={() => setUserType("patient")}
                     variant={userType === "patient" ? "default" : "outline"}
-                    className={`flex-1 ${userType === "patient" 
+                    className={`${userType === "patient" 
                       ? "bg-blue-600 hover:bg-blue-700" 
                       : "border-gray-700 text-gray-300 hover:bg-gray-800"
                     }`}
@@ -107,13 +125,13 @@ function App() {
               <div className="space-y-4">
                 <SignInButton mode="modal">
                   <Button className="w-full bg-blue-600 hover:bg-blue-700 py-3">
-                    Sign In as {userType === "admin" ? "Admin" : "Patient"}
+                    Sign In as {userType === "admin" ? "Admin" : userType === "doctor" ? "Doctor" : "Patient"}
                   </Button>
                 </SignInButton>
                 
                 <SignUpButton mode="modal">
                   <Button variant="outline" className="w-full border-gray-700 text-gray-300 hover:bg-gray-800 py-3">
-                    Sign Up as {userType === "admin" ? "Admin" : "Patient"}
+                    Sign Up as {userType === "admin" ? "Admin" : userType === "doctor" ? "Doctor" : "Patient"}
                   </Button>
                 </SignUpButton>
               </div>
@@ -125,6 +143,11 @@ function App() {
       <SignedIn>
         {userType === "patient" ? (
           // Patient View - Full Screen Dashboard
+          <div className="min-h-screen bg-gray-950">
+            {renderPage()}
+          </div>
+        ) : userType === "doctor" ? (
+          // Doctor View - Full Screen Dashboard
           <div className="min-h-screen bg-gray-950">
             {renderPage()}
           </div>
@@ -186,14 +209,24 @@ function App() {
 
               {/* User Profile with Clerk UserButton and User Type Switcher */}
               <div className="p-4 border-t border-gray-800 space-y-3">
-                <Button
-                  onClick={() => setUserType("patient")}
-                  variant="outline"
-                  size="sm"
-                  className="w-full border-gray-700 text-gray-300 hover:bg-gray-800"
-                >
-                  Switch to Patient View
-                </Button>
+                <div className="space-y-2">
+                  <Button
+                    onClick={() => setUserType("doctor")}
+                    variant="outline"
+                    size="sm"
+                    className="w-full border-gray-700 text-gray-300 hover:bg-gray-800"
+                  >
+                    Switch to Doctor View
+                  </Button>
+                  <Button
+                    onClick={() => setUserType("patient")}
+                    variant="outline"
+                    size="sm"
+                    className="w-full border-gray-700 text-gray-300 hover:bg-gray-800"
+                  >
+                    Switch to Patient View
+                  </Button>
+                </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <UserButton 

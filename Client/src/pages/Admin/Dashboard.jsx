@@ -49,7 +49,7 @@ export default function Dashboard() {
       {/* Stats Cards */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat, index) => (
-          <Card key={index} className="bg-gray-900 border-gray-800">
+          <Card key={index} className="bg-black border-gray-900">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-gray-300">{stat.title}</CardTitle>
               <svg
@@ -77,17 +77,23 @@ export default function Dashboard() {
 
       {/* Tabs Section */}
       <Tabs defaultValue="overview" className="space-y-4">
-        <TabsList className="bg-gray-900 border-gray-800">
-          <TabsTrigger value="overview" className="data-[state=active]:bg-gray-800 data-[state=active]:text-white">
+        <TabsList className="bg-black border border-gray-900">
+          <TabsTrigger 
+            value="overview" 
+            className="text-gray-400 data-[state=active]:bg-blue-600 data-[state=active]:text-white"
+          >
             Overview
           </TabsTrigger>
-          <TabsTrigger value="analytics" className="data-[state=active]:bg-gray-800 data-[state=active]:text-white">
+          <TabsTrigger 
+            value="analytics" 
+            className="text-gray-400 data-[state=active]:bg-blue-600 data-[state=active]:text-white"
+          >
             Analytics
           </TabsTrigger>
         </TabsList>
         
         <TabsContent value="overview" className="space-y-4">
-          <Card className="bg-gray-900 border-gray-800">
+          <Card className="bg-black border-gray-900">
             <CardHeader>
               <CardTitle className="text-white">Analysis Chart</CardTitle>
               <CardDescription className="text-gray-400">
@@ -102,7 +108,7 @@ export default function Dashboard() {
         
         <TabsContent value="analytics" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2">
-            <Card className="bg-gray-900 border-gray-800">
+            <Card className="bg-black border-gray-900">
               <CardHeader>
                 <CardTitle className="text-white">Age and Gender Distribution</CardTitle>
               </CardHeader>
@@ -111,7 +117,7 @@ export default function Dashboard() {
               </CardContent>
             </Card>
             
-            <Card className="bg-gray-900 border-gray-800">
+            <Card className="bg-black border-gray-900">
               <CardHeader>
                 <CardTitle className="text-white">Appointment Types</CardTitle>
               </CardHeader>
@@ -121,7 +127,7 @@ export default function Dashboard() {
             </Card>
           </div>
           
-          <Card className="bg-gray-900 border-gray-800">
+          <Card className="bg-black border-gray-900">
             <CardHeader>
               <CardTitle className="text-white">Staff Performance</CardTitle>
               <CardDescription className="text-gray-400">
@@ -131,7 +137,7 @@ export default function Dashboard() {
             <CardContent>
               <Table>
                 <TableHeader>
-                  <TableRow className="border-gray-800">
+                  <TableRow className="border-gray-900">
                     <TableHead className="text-gray-300">Name</TableHead>
                     <TableHead className="text-gray-300">Designation</TableHead>
                     <TableHead className="text-gray-300 text-right">No. of patients served</TableHead>
@@ -139,7 +145,7 @@ export default function Dashboard() {
                 </TableHeader>
                 <TableBody>
                   {staffPerformance.map((staff, index) => (
-                    <TableRow key={index} className="border-gray-800">
+                    <TableRow key={index} className="border-gray-900">
                       <TableCell className="text-white font-medium">{staff.name}</TableCell>
                       <TableCell className="text-gray-400">{staff.designation}</TableCell>
                       <TableCell className="text-gray-400 text-right">{staff.patients}</TableCell>

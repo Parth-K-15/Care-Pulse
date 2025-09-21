@@ -101,14 +101,14 @@ export default function Patients() {
         </Button>
       </div>
 
-      <Card className="bg-gray-900 border-gray-800">
+      <Card className="bg-black border-gray-900">
         <CardHeader>
           <CardTitle className="text-white">All Patients</CardTitle>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
-              <TableRow className="border-gray-800">
+              <TableRow className="border-gray-900">
                 <TableHead className="text-gray-300">Name</TableHead>
                 <TableHead className="text-gray-300">Age/Gender</TableHead>
                 <TableHead className="text-gray-300">Status</TableHead>
@@ -120,12 +120,12 @@ export default function Patients() {
             </TableHeader>
             <TableBody>
               {patients.map((patient) => (
-                <TableRow key={patient.id} className="border-gray-800">
+                <TableRow key={patient.id} className="border-gray-900">
                   <TableCell className="text-white">
                     <div className="flex items-center space-x-3">
                       <Avatar className="h-8 w-8">
                         <AvatarImage src={patient.avatar} alt={patient.name} />
-                        <AvatarFallback className="bg-gray-700 text-white">
+                        <AvatarFallback className="bg-black text-white">
                           {patient.name.split(' ').map(n => n[0]).join('')}
                         </AvatarFallback>
                       </Avatar>
@@ -148,17 +148,17 @@ export default function Patients() {
                           <MoreVertical className="h-4 w-4" />
                         </Button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end" className="bg-gray-900 border-gray-800">
-                        <DropdownMenuItem className="text-gray-300 hover:bg-gray-800 hover:text-white">
+                      <DropdownMenuContent align="end" className="bg-black border-gray-900">
+                        <DropdownMenuItem className="text-gray-300 hover:bg-black hover:text-white">
                           View Profile
                         </DropdownMenuItem>
-                        <DropdownMenuItem className="text-gray-300 hover:bg-gray-800 hover:text-white">
+                        <DropdownMenuItem className="text-gray-300 hover:bg-black hover:text-white">
                           Edit Details
                         </DropdownMenuItem>
-                        <DropdownMenuItem className="text-gray-300 hover:bg-gray-800 hover:text-white">
+                        <DropdownMenuItem className="text-gray-300 hover:bg-black hover:text-white">
                           View Medical History
                         </DropdownMenuItem>
-                        <DropdownMenuItem className="text-gray-300 hover:bg-gray-800 hover:text-white">
+                        <DropdownMenuItem className="text-gray-300 hover:bg-black hover:text-white">
                           View Prescription
                         </DropdownMenuItem>
                       </DropdownMenuContent>
