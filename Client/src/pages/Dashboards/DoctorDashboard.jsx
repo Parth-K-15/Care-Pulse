@@ -17,10 +17,6 @@ const DoctorDashboard = () => {
   const [currentView, setCurrentView] = useState('dashboard');
   const [isPatientsOpen, setIsPatientsOpen] = useState(false);
 
-  // Guard
-  if (!isLoaded) return null;
-  if (!isSignedIn) return <Navigate to="/doctor" replace />;
-
   // Sync user to backend on mount
   useEffect(() => {
     const sync = async () => {
