@@ -31,10 +31,6 @@ const DoctorDashboard = ({ onSwitchToAdmin, onSwitchToPatient }) => {
   const { isSignedIn, isLoaded } = useAuth();
   const { user } = useUser();
 
-  // Guard
-  if (!isLoaded) return null;
-  if (!isSignedIn) return <Navigate to="/doctor" replace />;
-
   // Sync user to backend on mount
   useEffect(() => {
     const sync = async () => {
@@ -60,6 +56,10 @@ const DoctorDashboard = ({ onSwitchToAdmin, onSwitchToPatient }) => {
     };
     sync();
   }, [user]);
+
+  // Guard
+  if (!isLoaded) return null;
+  if (!isSignedIn) return <Navigate to="/doctor" replace />;
   
   const mockData = {
     doctor: {
@@ -201,33 +201,31 @@ const DoctorDashboard = ({ onSwitchToAdmin, onSwitchToPatient }) => {
     <div className="min-h-screen bg-black text-white">
       <div className="p-6">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-6 bg-black p-6 rounded-lg border border-gray-800">
           <div>
-            <h1 className="text-3xl font-bold text-white">Good morning, {mockData.doctor.name}</h1>
-            <p className="text-gray-400">{mockData.doctor.specialty} • Today's schedule</p>
+            <h1 className="text-3xl font-bold text-white">🌅 Good morning, {mockData.doctor.name}</h1>
+            <p className="text-gray-400">🩺 {mockData.doctor.specialty} • 📅 Today's schedule</p>
           </div>
           <div className="flex items-center space-x-4">
             <Button 
               variant="outline" 
               onClick={onSwitchToAdmin}
-              className="border-gray-900 text-gray-300 hover:bg-black"
+              className="border-gray-700 text-gray-300 hover:bg-gray-900 bg-black"
             >
-              <Settings className="w-4 h-4 mr-2" />
-              Admin View
+              ⚙️ Admin View
             </Button>
             <Button 
               variant="outline" 
               onClick={onSwitchToPatient}
-              className="border-gray-900 text-gray-300 hover:bg-black"
+              className="border-gray-700 text-gray-300 hover:bg-gray-900 bg-black"
             >
-              <User className="w-4 h-4 mr-2" />
-              Patient View
+              👤 Patient View
             </Button>
             <UserButton 
               appearance={{
                 elements: {
                   userButtonAvatarBox: "w-10 h-10",
-                  userButtonPopoverCard: "bg-black border-gray-900",
+                  userButtonPopoverCard: "bg-black border-gray-800",
                 }
               }}
             />
@@ -236,65 +234,65 @@ const DoctorDashboard = ({ onSwitchToAdmin, onSwitchToPatient }) => {
 
         {/* Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="bg-black border-gray-900">
+          <Card className="bg-black border-gray-800 hover:border-gray-700 transition-colors">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-300">Appointments</CardTitle>
-              <Calendar className="h-4 w-4 text-blue-600" />
+              <CardTitle className="text-sm font-medium text-white">📅 Appointments</CardTitle>
+              <span className="text-2xl">🏥</span>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-white">{mockData.summary.appointments.total}</div>
               <div className="flex items-center justify-between mt-2">
                 <p className="text-gray-400 text-sm">Today's schedule</p>
-                <Badge className="bg-black text-red-400 border-gray-900">
-                  {mockData.summary.appointments.urgent} urgent
+                <Badge className="bg-red-900 text-red-300 border-red-700">
+                  🚨 {mockData.summary.appointments.urgent} urgent
                 </Badge>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-black border-gray-900">
+          <Card className="bg-black border-gray-800 hover:border-gray-700 transition-colors">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-300">Patients</CardTitle>
-              <Users className="h-4 w-4 text-green-600" />
+              <CardTitle className="text-sm font-medium text-white">👥 Patients</CardTitle>
+              <span className="text-2xl">🧑‍⚕️</span>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-white">{mockData.summary.patients.total}</div>
               <div className="flex items-center justify-between mt-2">
                 <p className="text-gray-400 text-sm">Active patients</p>
-                <Badge className="bg-black text-green-400 border-gray-900">
-                  +{mockData.summary.patients.new} new
+                <Badge className="bg-green-900 text-green-300 border-green-700">
+                  ✨ +{mockData.summary.patients.new} new
                 </Badge>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-black border-gray-900">
+          <Card className="bg-black border-gray-800 hover:border-gray-700 transition-colors">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-300">Reports</CardTitle>
-              <FileText className="h-4 w-4 text-blue-600" />
+              <CardTitle className="text-sm font-medium text-white">📊 Reports</CardTitle>
+              <span className="text-2xl">📋</span>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-white">{mockData.summary.reports.total}</div>
               <div className="flex items-center justify-between mt-2">
                 <p className="text-gray-400 text-sm">Pending reports</p>
-                <Badge className="bg-black text-green-400 border-gray-900">
-                  {mockData.summary.reports.ready} ready
+                <Badge className="bg-blue-900 text-blue-300 border-blue-700">
+                  ✅ {mockData.summary.reports.ready} ready
                 </Badge>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-black border-gray-900">
+          <Card className="bg-black border-gray-800 hover:border-gray-700 transition-colors">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-300">Tasks</CardTitle>
-              <ClipboardList className="h-4 w-4 text-red-600" />
+              <CardTitle className="text-sm font-medium text-white">📝 Tasks</CardTitle>
+              <span className="text-2xl">⚡</span>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-white">{mockData.summary.tasks.total}</div>
               <div className="flex items-center justify-between mt-2">
                 <p className="text-gray-400 text-sm">Pending tasks</p>
-                <Badge className="bg-black text-red-400 border-gray-900">
-                  {mockData.summary.tasks.highPriority} high priority
+                <Badge className="bg-red-900 text-red-300 border-red-700">
+                  🔥 {mockData.summary.tasks.highPriority} high priority
                 </Badge>
               </div>
             </CardContent>
@@ -304,46 +302,54 @@ const DoctorDashboard = ({ onSwitchToAdmin, onSwitchToPatient }) => {
         {/* Main Content Tabs */}
         <div className="mt-8">
           <Tabs defaultValue="schedule" className="w-full">
-            <TabsList className="grid w-full grid-cols-4 bg-black border border-gray-900">
-  <TabsTrigger 
-    value="schedule" 
-    className="text-gray-400 data-[state=active]:bg-black data-[state=active]:text-white"
-  >
-    Schedule
-  </TabsTrigger>
-  <TabsTrigger 
-    value="patients" 
-    className="text-gray-400 data-[state=active]:bg-black data-[state=active]:text-white"
-  >
-    Patients
-  </TabsTrigger>
-  <TabsTrigger 
-    value="tasks" 
-    className="text-gray-400 data-[state=active]:bg-black data-[state=active]:text-white"
-  >
-    Tasks
-  </TabsTrigger>
-  <TabsTrigger 
-    value="stats" 
-    className="text-gray-400 data-[state=active]:bg-black data-[state=active]:text-white"
-  >
-    Stats
-  </TabsTrigger>
-</TabsList>
+            <TabsList className="grid w-full grid-cols-4 bg-gray-800 p-1 rounded-lg border border-gray-700">
+              <TabsTrigger 
+                value="schedule" 
+                className="data-[state=active]:bg-black data-[state=active]:text-white data-[state=active]:border data-[state=active]:border-gray-600 text-gray-300 hover:text-white transition-colors"
+              >
+                📅 Schedule
+              </TabsTrigger>
+              <TabsTrigger 
+                value="patients" 
+                className="data-[state=active]:bg-black data-[state=active]:text-white data-[state=active]:border data-[state=active]:border-gray-600 text-gray-300 hover:text-white transition-colors"
+              >
+                👥 Patients
+              </TabsTrigger>
+              <TabsTrigger 
+                value="tasks" 
+                className="data-[state=active]:bg-black data-[state=active]:text-white data-[state=active]:border data-[state=active]:border-gray-600 text-gray-300 hover:text-white transition-colors"
+              >
+                📝 Tasks
+              </TabsTrigger>
+              <TabsTrigger 
+                value="stats" 
+                className="data-[state=active]:bg-black data-[state=active]:text-white data-[state=active]:border data-[state=active]:border-gray-600 text-gray-300 hover:text-white transition-colors"
+              >
+                📊 Stats
+              </TabsTrigger>
+            </TabsList>
 
 
             {/* Schedule Tab */}
             <TabsContent value="schedule" className="space-y-6 mt-6">
-              <Card className="bg-black border-gray-900">
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-xl text-white">Today's Appointments</CardTitle>
-                    <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
-                      <Plus className="w-4 h-4 mr-2" />
-                      Add Appointment
-                    </Button>
-                  </div>
-                </CardHeader>
+              {/* Schedule Sub-tabs */}
+              <Tabs defaultValue="today" className="w-full">
+                <TabsList className="grid w-full grid-cols-3 bg-gray-800 p-1 rounded-lg border border-gray-700 max-w-md">
+                  <TabsTrigger value="today" className="data-[state=active]:bg-gray-700 data-[state=active]:text-white text-gray-300 hover:text-white transition-colors text-sm">📅 Today</TabsTrigger>
+                  <TabsTrigger value="week" className="data-[state=active]:bg-gray-700 data-[state=active]:text-white text-gray-300 hover:text-white transition-colors text-sm">📆 Week</TabsTrigger>
+                  <TabsTrigger value="calendar" className="data-[state=active]:bg-gray-700 data-[state=active]:text-white text-gray-300 hover:text-white transition-colors text-sm">🗓️ Calendar</TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="today" className="mt-6">
+                  <Card className="bg-black border-gray-800 hover:border-gray-700 transition-colors">
+                    <CardHeader>
+                      <div className="flex items-center justify-between">
+                        <CardTitle className="text-xl text-white">📅 Today's Appointments</CardTitle>
+                        <Button size="sm" className="bg-black hover:bg-gray-900 border border-gray-700 text-white">
+                          ➕ Add Appointment
+                        </Button>
+                      </div>
+                    </CardHeader>
                 <CardContent className="space-y-4">
                   {mockData.appointments.map((appointment) => (
                     <div key={appointment.id} className="flex items-center space-x-4 p-3 bg-black rounded-lg border border-gray-900">
@@ -405,19 +411,36 @@ const DoctorDashboard = ({ onSwitchToAdmin, onSwitchToPatient }) => {
                       </div>
                     </div>
                   ))}
-                </CardContent>
-              </Card>
+                  </CardContent>
+                  </Card>
+                </TabsContent>
+
+                <TabsContent value="week" className="mt-6">
+                  <Card className="bg-black border-gray-800">
+                    <CardContent className="p-6">
+                      <p className="text-gray-400">Weekly schedule view coming soon...</p>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+
+                <TabsContent value="calendar" className="mt-6">
+                  <Card className="bg-black border-gray-800">
+                    <CardContent className="p-6">
+                      <p className="text-gray-400">Calendar view coming soon...</p>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+              </Tabs>
             </TabsContent>
 
             {/* Patients Tab */}
             <TabsContent value="patients" className="space-y-6 mt-6">
-              <Card className="bg-black border-gray-900">
+              <Card className="bg-black border-gray-800 hover:border-gray-700 transition-colors">
                 <CardHeader>
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-xl text-white">Patient List</CardTitle>
-                    <Button size="sm" className="bg-green-600 hover:bg-green-700">
-                      <Plus className="w-4 h-4 mr-2" />
-                      Add Patient
+                    <CardTitle className="text-xl text-white">👥 Patient List</CardTitle>
+                    <Button size="sm" className="bg-black hover:bg-gray-900 border border-gray-700 text-white">
+                      ➕ Add Patient
                     </Button>
                   </div>
                 </CardHeader>
