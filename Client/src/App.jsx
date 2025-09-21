@@ -3,6 +3,8 @@ import DepartmentForm from "./pages/Department/DepartmentForm";
 import DepartmentList from "./pages/Department/DepartmentList";
 import Preloader from "./common/Preloader/Preloader";
 import DoctorForm from "./pages/Doctor/DoctorForm";
+import DoctorList from "./pages/Doctor/DoctorList";
+import LandingPage from "./pages/LandingPage";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -22,10 +24,12 @@ function App() {
 
   return (
     <>
+      <LandingPage />
       <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-start py-10">
         <DepartmentForm />
         <DepartmentList />
       </div>
+      <DoctorList />
       <DoctorForm />
     </>
   );
