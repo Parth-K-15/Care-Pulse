@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -20,7 +18,7 @@ const PatientForm = ({ onSave, initialData = null }) => {
     middleName: initialData?.middleName || "",
     lastName: initialData?.lastName || "",
     dob: initialData?.dob || "",
-    gender: initialData?.gender || "",
+  gender: initialData?.gender || "",
     maritalStatus: initialData?.maritalStatus || "",
     address: initialData?.address || "",
     city: initialData?.city || "",
@@ -38,7 +36,7 @@ const PatientForm = ({ onSave, initialData = null }) => {
     },
 
     // Medical Information
-    bloodType: initialData?.bloodType || "",
+  bloodType: initialData?.bloodType || "",
     height: initialData?.height || "",
     weight: initialData?.weight || "",
     allergies: initialData?.allergies || "",
@@ -46,7 +44,7 @@ const PatientForm = ({ onSave, initialData = null }) => {
     chronicConditions: initialData?.chronicConditions || "",
     pastSurgeries: initialData?.pastSurgeries || "",
     hospitalizations: initialData?.hospitalizations || "",
-    status: initialData?.status || "",
+  status: initialData?.status || "",
     lastVisit: initialData?.lastVisit || "",
     condition: initialData?.condition || "",
     familyHistory: {
@@ -188,7 +186,7 @@ const PatientForm = ({ onSave, initialData = null }) => {
                 <div className="space-y-3">
                   <label className="text-sm font-medium">Gender</label>
                   <Select
-                    value={formData.gender}
+                    value={formData.gender || undefined}
                     onValueChange={(value) => handleChange({ target: { name: "gender", value } })}
                   >
                     <SelectTrigger className="bg-gray-800/50 border-gray-700 text-white h-12">
@@ -206,14 +204,13 @@ const PatientForm = ({ onSave, initialData = null }) => {
                 <div className="space-y-3">
                   <label className="text-sm font-medium">Marital Status</label>
                   <Select
-                    value={formData.maritalStatus}
+                    value={formData.maritalStatus || undefined}
                     onValueChange={(value) => handleChange({ target: { name: "maritalStatus", value } })}
                   >
                     <SelectTrigger className="bg-gray-800/50 border-gray-700 text-white h-12">
                       <SelectValue placeholder="Select status" />
                     </SelectTrigger>
                     <SelectContent className="bg-gray-800 border-gray-700">
-                      <SelectItem value="">Not specified</SelectItem>
                       <SelectItem value="Single">Single</SelectItem>
                       <SelectItem value="Married">Married</SelectItem>
                       <SelectItem value="Divorced">Divorced</SelectItem>
@@ -236,7 +233,7 @@ const PatientForm = ({ onSave, initialData = null }) => {
                 <div className="space-y-3">
                   <label className="text-sm font-medium">Preferred Contact Method</label>
                   <Select
-                    value={formData.contactMethod}
+                    value={formData.contactMethod || undefined}
                     onValueChange={(value) => handleChange({ target: { name: "contactMethod", value } })}
                   >
                     <SelectTrigger className="bg-gray-800/50 border-gray-700 text-white h-12">
@@ -275,14 +272,13 @@ const PatientForm = ({ onSave, initialData = null }) => {
                 <div className="space-y-3">
                   <label className="text-sm font-medium">Blood Type</label>
                   <Select
-                    value={formData.bloodType}
+                    value={formData.bloodType || undefined}
                     onValueChange={(value) => handleChange({ target: { name: "bloodType", value } })}
                   >
                     <SelectTrigger className="bg-gray-800/50 border-gray-700 text-white h-12">
                       <SelectValue placeholder="Select blood type" />
                     </SelectTrigger>
                     <SelectContent className="bg-gray-800 border-gray-700">
-                      <SelectItem value="">Not specified</SelectItem>
                       <SelectItem value="A+">A+</SelectItem>
                       <SelectItem value="A-">A-</SelectItem>
                       <SelectItem value="B+">B+</SelectItem>
@@ -347,14 +343,13 @@ const PatientForm = ({ onSave, initialData = null }) => {
               <div className="space-y-3">
                 <label className="text-sm font-medium">Status</label>
                 <Select
-                  value={formData.status}
+                  value={formData.status || undefined}
                   onValueChange={(value) => handleChange({ target: { name: "status", value } })}
                 >
                   <SelectTrigger className="bg-gray-800/50 border-gray-700 text-white h-12">
                     <SelectValue placeholder="Select patient status" />
                   </SelectTrigger>
                   <SelectContent className="bg-gray-800 border-gray-700">
-                    <SelectItem value="">Not specified</SelectItem>
                     <SelectItem value="Admitted">Admitted</SelectItem>
                     <SelectItem value="Discharged">Discharged</SelectItem>
                     <SelectItem value="Under Observation">Under Observation</SelectItem>
@@ -406,14 +401,13 @@ const PatientForm = ({ onSave, initialData = null }) => {
                   <div className="space-y-3">
                     <label className="text-sm font-medium">Smoking Status</label>
                     <Select
-                      value={formData.lifestyle.smoking}
+                      value={formData.lifestyle.smoking || undefined}
                       onValueChange={(value) => handleChange({ target: { name: "lifestyle.smoking", value } })}
                     >
                       <SelectTrigger className="bg-gray-800/50 border-gray-700 text-white h-12">
                         <SelectValue placeholder="Select status" />
                       </SelectTrigger>
                       <SelectContent className="bg-gray-800 border-gray-700">
-                        <SelectItem value="">Not specified</SelectItem>
                         <SelectItem value="Yes">Yes</SelectItem>
                         <SelectItem value="No">No</SelectItem>
                         <SelectItem value="Occasionally">Occasionally</SelectItem>
@@ -423,14 +417,13 @@ const PatientForm = ({ onSave, initialData = null }) => {
                   <div className="space-y-3">
                     <label className="text-sm font-medium">Alcohol Consumption</label>
                     <Select
-                      value={formData.lifestyle.alcohol}
+                      value={formData.lifestyle.alcohol || undefined}
                       onValueChange={(value) => handleChange({ target: { name: "lifestyle.alcohol", value } })}
                     >
                       <SelectTrigger className="bg-gray-800/50 border-gray-700 text-white h-12">
                         <SelectValue placeholder="Select consumption" />
                       </SelectTrigger>
                       <SelectContent className="bg-gray-800 border-gray-700">
-                        <SelectItem value="">Not specified</SelectItem>
                         <SelectItem value="Yes">Yes</SelectItem>
                         <SelectItem value="No">No</SelectItem>
                         <SelectItem value="Occasionally">Occasionally</SelectItem>
