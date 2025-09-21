@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth, useClerk } from "@clerk/clerk-react";
 import Dashboard from "../Admin/Dashboard";
 import Doctors from "../Admin/Doctors";
-import Patients from "../Admin/Patients";
+import PatientTable from "../Patient/PatientTable";
 import Appointments from "../Admin/Appointments";
 import Prescriptions from "../Admin/Prescriptions";
 import DepartmentList from "../Department/DepartmentList";
@@ -60,7 +60,7 @@ export default function AdminDashboard() {
       case "doctors":
         return <Doctors />;
       case "patients":
-        return <Patients />;
+        return <PatientTable />;
       case "appointments":
         return <Appointments />;
       case "prescriptions":
