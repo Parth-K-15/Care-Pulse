@@ -93,10 +93,10 @@ export default function AdminDashboard() {
             {/* Logo */}
             <div className="p-6 border-b border-gray-800">
               <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-black border border-gray-700 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">🏥</span>
+                <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
+                  <span className="text-white font-bold text-sm">CP</span>
                 </div>
-                <span className="text-white font-semibold text-lg">CarePulse Admin</span>
+                <span className="text-white font-semibold text-lg">CarePulse</span>
               </div>
             </div>
 
@@ -104,20 +104,20 @@ export default function AdminDashboard() {
             <nav className="flex-1 p-4 space-y-3">
               <div className="mb-6">
                 <h3 className="text-gray-500 text-xs font-semibold uppercase tracking-wider mb-3">
-                  ⚙️ Admin Panel
+                  Admin Panel
                 </h3>
                 {adminMenuItems.map((item) => (
                   <Button
                     key={item.id}
                     variant="ghost"
                     onClick={() => setCurrentView(item.id)}
-                    className={`w-full justify-start space-x-3 px-3 py-2.5 h-auto rounded-lg border transition-colors ${
+                    className={`w-full justify-start space-x-3 px-3 py-2.5 h-auto ${
                       currentView === item.id
-                        ? "bg-black border-gray-600 text-white hover:bg-gray-900"
-                        : "text-gray-400 hover:bg-gray-900 hover:text-white border-transparent hover:border-gray-700"
+                        ? "bg-gray-800 text-white hover:bg-gray-800"
+                        : "text-gray-400 hover:bg-gray-900 hover:text-white"
                     }`}
                   >
-                    <span className="text-base">{item.icon}</span>
+                    <span className="text-base opacity-70">{item.icon}</span>
                     <span className="text-sm font-medium">{item.label}</span>
                   </Button>
                 ))}
@@ -127,35 +127,35 @@ export default function AdminDashboard() {
               <div className="space-y-1">
                 <button
                   onClick={() => setIsDeptOpen((v) => !v)}
-                  className={`w-full flex items-center justify-between px-3 py-2 rounded-lg border transition-colors ${
-                    currentView.startsWith("dept.") ? "bg-gray-800 text-white border-gray-600" : "text-gray-300 hover:bg-gray-900 border-gray-800 hover:border-gray-700"
+                  className={`w-full flex items-center justify-between px-3 py-2 rounded-md border border-gray-800 ${
+                    currentView.startsWith("dept.") ? "bg-gray-900 text-white" : "text-gray-300 hover:bg-gray-900"
                   }`}
                 >
                   <span className="flex items-center gap-2">
-                    <span className="text-base">🏢</span>
+                    <Building2 className="w-4 h-4 opacity-80" />
                     <span className="text-sm font-medium">Departments</span>
                   </span>
-                  <span className={`text-sm transition-transform ${isDeptOpen ? "rotate-180" : ""}`}>🔽</span>
+                  <ChevronDown className={`w-4 h-4 transition-transform ${isDeptOpen ? "rotate-180" : ""}`} />
                 </button>
                 {isDeptOpen && (
-                  <div className="ml-6 space-y-1 bg-gray-800/50 rounded-lg p-2 border border-gray-700">
+                  <div className="ml-6 space-y-1">
                     <Button
                       variant="ghost"
                       onClick={() => setCurrentView("dept.list")}
-                      className={`w-full justify-start px-3 py-2 h-auto text-sm rounded-md ${
-                        currentView === "dept.list" ? "bg-gray-700 text-white" : "text-gray-300 hover:bg-gray-700 hover:text-white"
+                      className={`w-full justify-start px-3 py-2 h-auto text-sm ${
+                        currentView === "dept.list" ? "bg-gray-800 text-white" : "text-gray-300 hover:bg-gray-900"
                       }`}
                     >
-                      📋 Department List
+                      Department List
                     </Button>
                     <Button
                       variant="ghost"
                       onClick={() => setCurrentView("dept.add")}
-                      className={`w-full justify-start px-3 py-2 h-auto text-sm rounded-md ${
-                        currentView === "dept.add" ? "bg-gray-700 text-white" : "text-gray-300 hover:bg-gray-700 hover:text-white"
+                      className={`w-full justify-start px-3 py-2 h-auto text-sm ${
+                        currentView === "dept.add" ? "bg-gray-800 text-white" : "text-gray-300 hover:bg-gray-900"
                       }`}
                     >
-                      ➕ Add Department
+                      Add Department
                     </Button>
                   </div>
                 )}
@@ -165,35 +165,35 @@ export default function AdminDashboard() {
               <div className="space-y-1">
                 <button
                   onClick={() => setIsDoctorOpen((v) => !v)}
-                  className={`w-full flex items-center justify-between px-3 py-2 rounded-lg border transition-colors ${
-                    currentView.startsWith("doc.") ? "bg-gray-800 text-white border-gray-600" : "text-gray-300 hover:bg-gray-900 border-gray-800 hover:border-gray-700"
+                  className={`w-full flex items-center justify-between px-3 py-2 rounded-md border border-gray-800 ${
+                    currentView.startsWith("doc.") ? "bg-gray-900 text-white" : "text-gray-300 hover:bg-gray-900"
                   }`}
                 >
                   <span className="flex items-center gap-2">
-                    <span className="text-base">👨‍⚕️</span>
+                    <Users className="w-4 h-4 opacity-80" />
                     <span className="text-sm font-medium">Doctors</span>
                   </span>
-                  <span className={`text-sm transition-transform ${isDoctorOpen ? "rotate-180" : ""}`}>🔽</span>
+                  <ChevronDown className={`w-4 h-4 transition-transform ${isDoctorOpen ? "rotate-180" : ""}`} />
                 </button>
                 {isDoctorOpen && (
-                  <div className="ml-6 space-y-1 bg-gray-800/50 rounded-lg p-2 border border-gray-700">
+                  <div className="ml-6 space-y-1">
                     <Button
                       variant="ghost"
                       onClick={() => setCurrentView("doc.list")}
-                      className={`w-full justify-start px-3 py-2 h-auto text-sm rounded-md ${
-                        currentView === "doc.list" ? "bg-gray-700 text-white" : "text-gray-300 hover:bg-gray-700 hover:text-white"
+                      className={`w-full justify-start px-3 py-2 h-auto text-sm ${
+                        currentView === "doc.list" ? "bg-gray-800 text-white" : "text-gray-300 hover:bg-gray-900"
                       }`}
                     >
-                      📋 Doctors List
+                      Doctors List
                     </Button>
                     <Button
                       variant="ghost"
                       onClick={() => setCurrentView("doc.add")}
-                      className={`w-full justify-start px-3 py-2 h-auto text-sm rounded-md ${
-                        currentView === "doc.add" ? "bg-gray-700 text-white" : "text-gray-300 hover:bg-gray-700 hover:text-white"
+                      className={`w-full justify-start px-3 py-2 h-auto text-sm ${
+                        currentView === "doc.add" ? "bg-gray-800 text-white" : "text-gray-300 hover:bg-gray-900"
                       }`}
                     >
-                      ➕ Add Doctor
+                      Add Doctor
                     </Button>
                   </div>
                 )}
@@ -203,35 +203,35 @@ export default function AdminDashboard() {
               <div className="space-y-1">
                 <button
                   onClick={() => setIsStaffOpen((v) => !v)}
-                  className={`w-full flex items-center justify-between px-3 py-2 rounded-lg border transition-colors ${
-                    currentView.startsWith("staff.") ? "bg-gray-800 text-white border-gray-600" : "text-gray-300 hover:bg-gray-900 border-gray-800 hover:border-gray-700"
+                  className={`w-full flex items-center justify-between px-3 py-2 rounded-md border border-gray-800 ${
+                    currentView.startsWith("staff.") ? "bg-gray-900 text-white" : "text-gray-300 hover:bg-gray-900"
                   }`}
                 >
                   <span className="flex items-center gap-2">
-                    <span className="text-base">👥</span>
+                    <UserCheck className="w-4 h-4 opacity-80" />
                     <span className="text-sm font-medium">Staff</span>
                   </span>
-                  <span className={`text-sm transition-transform ${isStaffOpen ? "rotate-180" : ""}`}>🔽</span>
+                  <ChevronDown className={`w-4 h-4 transition-transform ${isStaffOpen ? "rotate-180" : ""}`} />
                 </button>
                 {isStaffOpen && (
-                  <div className="ml-6 space-y-1 bg-gray-800/50 rounded-lg p-2 border border-gray-700">
+                  <div className="ml-6 space-y-1">
                     <Button
                       variant="ghost"
                       onClick={() => setCurrentView("staff.list")}
-                      className={`w-full justify-start px-3 py-2 h-auto text-sm rounded-md ${
-                        currentView === "staff.list" ? "bg-gray-700 text-white" : "text-gray-300 hover:bg-gray-700 hover:text-white"
+                      className={`w-full justify-start px-3 py-2 h-auto text-sm ${
+                        currentView === "staff.list" ? "bg-gray-800 text-white" : "text-gray-300 hover:bg-gray-900"
                       }`}
                     >
-                      📋 Staff List
+                      Staff List
                     </Button>
                     <Button
                       variant="ghost"
                       onClick={() => setCurrentView("staff.add")}
-                      className={`w-full justify-start px-3 py-2 h-auto text-sm rounded-md ${
-                        currentView === "staff.add" ? "bg-gray-700 text-white" : "text-gray-300 hover:bg-gray-700 hover:text-white"
+                      className={`w-full justify-start px-3 py-2 h-auto text-sm ${
+                        currentView === "staff.add" ? "bg-gray-800 text-white" : "text-gray-300 hover:bg-gray-900"
                       }`}
                     >
-                      ➕ Add Staff
+                      Add Staff
                     </Button>
                   </div>
                 )}
@@ -242,16 +242,16 @@ export default function AdminDashboard() {
             <div className="p-4 border-t border-gray-800">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 rounded-full bg-black border border-gray-700 flex items-center justify-center text-white text-xs">
-                    👤
+                  <div className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-white text-xs">
+                    AD
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-gray-200 text-sm font-medium truncate">🔐 Admin</p>
-                    <p className="text-gray-400 text-xs">System Administrator</p>
+                    <p className="text-gray-200 text-sm font-medium truncate">Admin</p>
+                    <p className="text-gray-400 text-xs">Administrator</p>
                   </div>
                 </div>
-                <Button variant="ghost" className="text-red-400 hover:text-red-300 hover:bg-red-950 rounded-lg" onClick={handleSignOut}>
-                  🚪 Sign Out
+                <Button variant="ghost" className="text-red-400 hover:text-red-300" onClick={handleSignOut}>
+                  Sign Out
                 </Button>
               </div>
             </div>
