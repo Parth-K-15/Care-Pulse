@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useAuth, useClerk } from "@clerk/clerk-react";
 import Dashboard from "../Admin/Dashboard";
 import Doctors from "../Admin/Doctors";
 import Patients from "../Admin/Patients";
@@ -10,19 +11,19 @@ import DoctorList from "../Doctor/DoctorList";
 import DoctorForm from "../Doctor/DoctorForm";
 import StaffList from "../Staff/StaffList";
 import StaffForm from "../Staff/StaffForm";
-import UserRequest from "../Admin/UserRequest";
 import { Button } from "../../components/ui/button";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Building2, Users, ChevronDown, UserCheck } from "lucide-react";
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
+  const { isSignedIn, isLoaded } = useAuth();
+  const { signOut } = useClerk();
   const [currentView, setCurrentView] = useState("dashboard");
   const [isDeptOpen, setIsDeptOpen] = useState(true);
   const [isDoctorOpen, setIsDoctorOpen] = useState(false);
   const [isStaffOpen, setIsStaffOpen] = useState(false);
   const [departments, setDepartments] = useState([]);
-  const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
   // Prefetch departments for DoctorForm dropdown
   useEffect(() => {
@@ -32,23 +33,22 @@ export default function AdminDashboard() {
       .catch(() => {});
   }, []);
 
-  // Redirect to /admin if not authenticated
-  if (!token) {
-    return <Navigate to="/admin" replace />;
-  }
+  // Auth guard with Clerk to prevent redirect loops
+  if (!isLoaded) return null;
+  if (!isSignedIn) return <Navigate to="/admin" replace />;
 
-  const handleSignOut = () => {
+  const handleSignOut = async () => {
     try {
-      localStorage.removeItem("token");
-    } catch {}
-    navigate("/admin", { replace: true });
+      await signOut();
+    } finally {
+      navigate("/admin", { replace: true });
+    }
   };
 
   const adminMenuItems = [
     { id: "dashboard", label: "Dashboard", icon: "📊" },
-    { id: "userrequest", label: "User Requests", icon: "👥" },
     { id: "doctors", label: "Doctors", icon: "🩺" },
-    { id: "patients", label: "Patients", icon: "�" },
+    { id: "patients", label: "Patients", icon: "👥" },
     { id: "appointments", label: "Appointments", icon: "📅" },
     { id: "prescriptions", label: "Prescriptions", icon: "💊" },
   ];
@@ -57,8 +57,6 @@ export default function AdminDashboard() {
     switch (currentView) {
       case "dashboard":
         return <Dashboard />;
-      case "userrequest":
-        return <UserRequest />;
       case "doctors":
         return <Doctors />;
       case "patients":
