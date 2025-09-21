@@ -8,6 +8,7 @@ import DoctorAuth from "./pages/Doctor/DoctorAuth";
 import DoctorDashboard from "./pages/Dashboards/DoctorDashboard";
 import PatientAuth from "./pages/Patient/PatientAuth";
 import PatientDashboard from "./pages/Dashboards/PatientDashboard";
+import DoctorProfile from "./pages/Doctor/DoctorProfile";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -28,6 +29,7 @@ function App() {
       <Route path="/admin/dashboard" element={<AdminDashboard />} />
       <Route path="/doctor" element={<DoctorAuth />} />
       <Route path="/doctor/dashboard" element={<DoctorDashboard />} />
+      <Route path="/doctor-profile/:id" element={<DoctorProfile />} />
       <Route path="/patient" element={<PatientAuth />} />
       <Route path="/patient/dashboard" element={<PatientDashboard />} />
       {/* Future: doctor/patient auth routes */}
