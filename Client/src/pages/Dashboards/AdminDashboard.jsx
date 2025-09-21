@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAuth, useClerk } from "@clerk/clerk-react";
+import { useAuth, useClerk, useUser } from "@clerk/clerk-react";
 import Dashboard from "../Admin/Dashboard";
 import Doctors from "../Admin/Doctors";
 import Patients from "../Admin/Patients";
@@ -19,6 +19,7 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
   const { isSignedIn, isLoaded } = useAuth();
   const { signOut } = useClerk();
+  const { user } = useUser();
   const [currentView, setCurrentView] = useState("dashboard");
   const [isDeptOpen, setIsDeptOpen] = useState(true);
   const [isDoctorOpen, setIsDoctorOpen] = useState(false);
@@ -32,6 +33,30 @@ export default function AdminDashboard() {
       .then((data) => Array.isArray(data) && setDepartments(data))
       .catch(() => {});
   }, []);
+
+  // Sync admin user record
+  useEffect(() => {
+    const doSync = async () => {
+      try {
+        if (!user) return;
+        const payload = {
+          clerkId: user.id,
+          email: user.primaryEmailAddress?.emailAddress,
+          username: user.username,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          imageUrl: user.imageUrl,
+          role: 'admin',
+        };
+        await fetch('http://localhost:5000/api/auth/sync', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch {}
+    };
+    if (isSignedIn) doSync();
+  }, [isSignedIn, user]);
 
   // Auth guard with Clerk to prevent redirect loops
   if (!isLoaded) return null;

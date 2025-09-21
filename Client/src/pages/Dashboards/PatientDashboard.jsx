@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useAuth, useUser } from '@clerk/clerk-react';
+import { Navigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -27,6 +29,36 @@ import {
 } from 'lucide-react';
 
 const PatientDashboard = ({ onSwitchToAdmin }) => {
+  const { isSignedIn, isLoaded } = useAuth();
+  const { user } = useUser();
+
+  if (!isLoaded) return null;
+  if (!isSignedIn) return <Navigate to="/patient" replace />;
+
+  useEffect(() => {
+    const sync = async () => {
+      try {
+        if (!user) return;
+        const payload = {
+          clerkId: user.id,
+          email: user.primaryEmailAddress?.emailAddress,
+          username: user.username,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          imageUrl: user.imageUrl,
+          role: 'patient',
+        };
+        await fetch('http://localhost:5000/api/auth/sync', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+      } catch (e) {
+        console.warn('User sync failed:', e);
+      }
+    };
+    sync();
+  }, [user]);
   // Mock data for the dashboard
   const mockData = {
     patient: {

@@ -1,4 +1,5 @@
 import express from "express";
+import User from "../models/User.js";
 
 const router = express.Router();
 
@@ -17,13 +18,13 @@ router.post("/sync", async (req, res) => {
       firstName,
       lastName,
       imageUrl,
-      role: role || "admin",
       lastLoginAt: new Date(),
     };
+    if (role) update.role = role;
 
     const user = await User.findOneAndUpdate(
       { clerkId },
-      { $set: update, $setOnInsert: { clerkId } },
+      { $set: update, $setOnInsert: { clerkId, ...(role ? { role } : {}) } },
       { new: true, upsert: true }
     );
 
