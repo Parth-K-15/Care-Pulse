@@ -162,14 +162,31 @@ dist/
 # Upload directories (if any)
 uploads/
 public/uploads/
+storage/
 
 # SSL certificates (if any)
 *.pem
 *.key
 *.crt
+certificates/
 
 # MongoDB dump files
 dump/
+*.bson
 
 # Redis dump files
 *.rdb
+
+# Session files
+sessions/
+
+# JWT secrets and keys
+secrets/
+*.secret
+
+# API documentation generated files
+docs/generated/
+
+# PM2 process files
+.pm2/
+ecosystem.config.js
