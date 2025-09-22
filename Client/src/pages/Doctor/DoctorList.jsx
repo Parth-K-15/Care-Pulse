@@ -76,7 +76,7 @@ export default function DoctorList() {
           avatar: "/api/placeholder/80/80"
         }
       ];
-      
+
       setDoctors(sampleData);
     } catch (error) {
       console.error("Error fetching doctors:", error);
@@ -86,23 +86,23 @@ export default function DoctorList() {
   };
 
   const filteredDoctors = doctors.filter((doctor) => {
-    const matchesSearch = 
-      doctor.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      doctor.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      doctor.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      doctor.primarySpecialization.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesStatus = statusFilter === "All" || doctor.status === statusFilter;
-    const matchesSpecialty = specialtyFilter === "All" || doctor.primarySpecialization === specialtyFilter;
-    
+    const matchesSearch =
+      doctor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      doctor.specialty.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      doctor.email.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesStatus =
+      statusFilter === "All" || doctor.status === statusFilter;
+
+    const matchesSpecialty =
+      specialtyFilter === "All" || doctor.specialty === specialtyFilter;
+
     return matchesSearch && matchesStatus && matchesSpecialty;
   });
 
-  const uniqueSpecialties = [...new Set(doctors.map(doctor => doctor.primarySpecialization))];
-
-
-
-
+  const uniqueSpecialties = [
+    ...new Set(doctors.map((doctor) => doctor.specialty)),
+  ];
 
   if (loading) {
     return (
@@ -134,7 +134,7 @@ export default function DoctorList() {
                 className="w-full pl-10 pr-4 py-2 bg-black border border-gray-700 text-white rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500 placeholder-gray-400"
               />
             </div>
-            
+
             <div className="flex gap-4 items-center">
               <div className="flex items-center gap-2">
                 <Filter className="w-4 h-4 text-gray-400" />
