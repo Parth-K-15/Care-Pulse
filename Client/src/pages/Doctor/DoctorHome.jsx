@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -18,9 +19,74 @@ import {
   TrendingUp,
   Plus,
   Eye,
+  Video,
+  Phone,
 } from 'lucide-react';
 
 const DoctorHome = () => {
+  const navigate = useNavigate();
+
+  // Quick Meeting Card Component
+  const QuickMeetingCard = ({ title, description, icon, action }) => {
+    const handleMeetingAction = () => {
+      const roomId = generateRoomId();
+      const meetingData = {
+        doctorName: mockData.doctor.name,
+        patientName: action === 'emergency' ? 'Emergency Patient' : 'Patient',
+        appointmentTime: new Date().toLocaleTimeString(),
+        appointmentType: action === 'emergency' ? 'Emergency Consultation' : 
+                        action === 'start' ? 'Instant Consultation' : 'Scheduled Meeting',
+        userRole: 'doctor'
+      };
+
+      navigate(`/meeting/${roomId}`, { state: meetingData });
+    };
+
+    const getCardColor = () => {
+      switch (action) {
+        case 'emergency': return 'border-red-700 hover:border-red-600';
+        case 'start': return 'border-blue-700 hover:border-blue-600';
+        case 'join': return 'border-green-700 hover:border-green-600';
+        default: return 'border-gray-700 hover:border-gray-600';
+      }
+    };
+
+    const getButtonColor = () => {
+      switch (action) {
+        case 'emergency': return 'bg-red-900 hover:bg-red-800 text-red-300 border-red-700';
+        case 'start': return 'bg-blue-900 hover:bg-blue-800 text-blue-300 border-blue-700';
+        case 'join': return 'bg-green-900 hover:bg-green-800 text-green-300 border-green-700';
+        default: return 'bg-gray-900 hover:bg-gray-800 text-gray-300 border-gray-700';
+      }
+    };
+
+    return (
+      <Card className={`bg-black border transition-colors ${getCardColor()}`}>
+        <CardContent className="p-4 text-center">
+          <div className="text-3xl mb-3">{icon}</div>
+          <h3 className="font-semibold text-white mb-2">{title}</h3>
+          <p className="text-sm text-gray-400 mb-4">{description}</p>
+          <Button 
+            onClick={handleMeetingAction}
+            className={`w-full ${getButtonColor()}`}
+            size="sm"
+          >
+            <Video className="w-4 h-4 mr-2" />
+            {action === 'emergency' ? 'Start Emergency' : 
+             action === 'start' ? 'Start Meeting' : 'Join Meeting'}
+          </Button>
+        </CardContent>
+      </Card>
+    );
+  };
+
+  // Generate unique room ID
+  const generateRoomId = () => {
+    const timestamp = Date.now();
+    const random = Math.floor(Math.random() * 1000);
+    return `dr-${timestamp}-${random}`;
+  };
+
   const mockData = {
     doctor: {
       name: 'Dr. Sarah',
@@ -170,6 +236,43 @@ const DoctorHome = () => {
           </Card>
         </div>
 
+        {/* Quick Meeting Section */}
+        <div className="mt-8 mb-8">
+          <Card className="bg-black border-gray-900">
+            <CardHeader>
+              <CardTitle className="text-xl text-white flex items-center gap-2">
+                <Video className="w-5 h-5 text-blue-400" />
+                📹 Video Consultations
+              </CardTitle>
+              <CardDescription className="text-gray-400">
+                Start instant meetings or join scheduled consultations
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <QuickMeetingCard 
+                  title="Start New Meeting"
+                  description="Begin instant consultation"
+                  icon="🚀"
+                  action="start"
+                />
+                <QuickMeetingCard 
+                  title="Emergency Consultation"
+                  description="Priority medical meeting"
+                  icon="🚨"
+                  action="emergency"
+                />
+                <QuickMeetingCard 
+                  title="Join Waiting Room"
+                  description="Connect to scheduled meeting"
+                  icon="⏰"
+                  action="join"
+                />
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
         {/* Main Content Tabs */}
         <div className="mt-8">
           <Tabs defaultValue="schedule" className="w-full">
@@ -212,6 +315,24 @@ const DoctorHome = () => {
                         </div>
                       </div>
                       <div className="flex space-x-2">
+                        <Button 
+                          size="sm" 
+                          onClick={() => {
+                            const roomId = `appointment-${appointment.id}-${Date.now()}`;
+                            const meetingData = {
+                              doctorName: mockData.doctor.name,
+                              patientName: appointment.patient,
+                              appointmentTime: appointment.time,
+                              appointmentType: appointment.type,
+                              userRole: 'doctor'
+                            };
+                            navigate(`/meeting/${roomId}`, { state: meetingData });
+                          }}
+                          className="bg-blue-900 hover:bg-blue-800 text-blue-300 border-blue-700"
+                        >
+                          <Video className="w-4 h-4 mr-1" />
+                          📹 Join
+                        </Button>
                         <Button size="sm" variant="outline" className="border-gray-900 text-gray-300 hover:bg-black">
                           <Eye className="w-4 h-4" />
                         </Button>

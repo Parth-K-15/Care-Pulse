@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useAuth, useClerk, useUser } from '@clerk/clerk-react';
 import { Navigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ChevronDown, ClipboardList, FileText, LayoutDashboard, ListChecks, PackageSearch, Users } from 'lucide-react';
+import { ChevronDown, ClipboardList, FileText, LayoutDashboard, ListChecks, PackageSearch, Users, Video } from 'lucide-react';
 import DoctorHome from '../Doctor/DoctorHome';
 import Appointments from '../Admin/Appointments';
 import Prescriptions from '../Admin/Prescriptions';
 import PatientTable from '../Patient/PatientTable';
 import PatientForm from '../Patient/PatientForm';
 import Inventory from '../Doctor/Inventory';
+import MeetingManager from '../../components/MeetingManager';
 
 const DoctorDashboard = () => {
   const { isSignedIn, isLoaded } = useAuth();
@@ -45,6 +46,7 @@ const DoctorDashboard = () => {
 
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard className="w-4 h-4 opacity-80" /> },
+    { id: 'meetings', label: 'Video Meetings', icon: <Video className="w-4 h-4 opacity-80" /> },
     { id: 'appointments', label: 'Appointments', icon: <ClipboardList className="w-4 h-4 opacity-80" /> },
     { id: 'prescriptions', label: 'Prescriptions', icon: <FileText className="w-4 h-4 opacity-80" /> },
     { id: 'patients', label: 'Patients', icon: <Users className="w-4 h-4 opacity-80" /> },
@@ -55,6 +57,8 @@ const DoctorDashboard = () => {
     switch (currentView) {
       case 'dashboard':
         return <DoctorHome />;
+      case 'meetings':
+        return <MeetingManager userRole="doctor" />;
       case 'appointments':
         return <Appointments />;
       case 'prescriptions':

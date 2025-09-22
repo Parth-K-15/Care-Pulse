@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useAuth, useUser } from '@clerk/clerk-react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -25,12 +25,28 @@ import {
   Stethoscope,
   Scissors,
   Brain,
-  Settings
+  Settings,
+  Video,
+  Phone
 } from 'lucide-react';
 
 const PatientDashboard = ({ onSwitchToAdmin }) => {
   const { isSignedIn, isLoaded } = useAuth();
   const { user } = useUser();
+  const navigate = useNavigate();
+
+  // Meeting functions
+  const startMeeting = (appointment) => {
+    const roomId = `patient-${appointment.id}-${Date.now()}`;
+    const meetingData = {
+      doctorName: appointment.doctor,
+      patientName: user ? `${user.firstName || ''} ${user.lastName || ''}`.trim() || user.username || 'Patient' : 'Patient',
+      appointmentTime: appointment.time,
+      appointmentType: appointment.specialty,
+      userRole: 'patient'
+    };
+    navigate(`/meeting/${roomId}`, { state: meetingData });
+  };
 
   useEffect(() => {
     const sync = async () => {
@@ -379,9 +395,19 @@ const PatientDashboard = ({ onSwitchToAdmin }) => {
                             <p className="text-sm text-gray-400">{appointment.specialty}</p>
                             <p className="text-sm text-gray-400">{appointment.date} at {appointment.time}</p>
                           </div>
-                          <Badge variant="outline" className="border-blue-400 text-blue-400">
-                            {appointment.date}
-                          </Badge>
+                          <div className="flex flex-col gap-2">
+                            <Button
+                              size="sm"
+                              onClick={() => startMeeting(appointment)}
+                              className="bg-blue-900 hover:bg-blue-800 text-blue-300 border-blue-700"
+                            >
+                              <Video className="w-4 h-4 mr-1" />
+                              📹 Join Meeting
+                            </Button>
+                            <Badge variant="outline" className="border-blue-400 text-blue-400 text-center">
+                              {appointment.date}
+                            </Badge>
+                          </div>
                         </div>
                       ))}
                       <Button variant="outline" className="w-full border-gray-700 hover:bg-gray-700 bg-black text-white">

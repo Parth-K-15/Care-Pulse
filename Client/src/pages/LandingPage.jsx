@@ -155,9 +155,9 @@ const LandingPage = () => {
         </section>
 
         {/* Login Cards Section */}
-        <section className="mb-16 flex flex-col md:flex-row justify-center items-center space-y-6 md:space-y-0 md:space-x-8">
+        <section className="mb-16 flex flex-col md:flex-row justify-center items-center space-y-6 md:space-y-0 md:space-x-6">
           {/* Patient Card */}
-          <div className="w-full md:w-1/3 bg-gray-800 p-6 rounded-2xl shadow-inner shadow-gray-700 hover:shadow-xl hover:shadow-green-500/50 transition-all duration-300 transform hover:scale-105 hover:ring-2 hover:ring-green-400/50">
+          <div className="w-full md:w-1/4 bg-gray-800 p-6 rounded-2xl shadow-inner shadow-gray-700 hover:shadow-xl hover:shadow-green-500/50 transition-all duration-300 transform hover:scale-105 hover:ring-2 hover:ring-green-400/50">
             <div className="flex flex-col items-center text-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -191,7 +191,7 @@ const LandingPage = () => {
             </div>
           </div>
           {/* Doctor Card */}
-          <div className="w-full md:w-1/3 bg-gray-800 p-6 rounded-2xl shadow-inner shadow-gray-700 hover:shadow-xl hover:shadow-blue-500/50 transition-all duration-300 transform hover:scale-105 hover:ring-2 hover:ring-blue-400/50">
+          <div className="w-full md:w-1/4 bg-gray-800 p-6 rounded-2xl shadow-inner shadow-gray-700 hover:shadow-xl hover:shadow-blue-500/50 transition-all duration-300 transform hover:scale-105 hover:ring-2 hover:ring-blue-400/50">
             <div className="flex flex-col items-center text-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -227,7 +227,7 @@ const LandingPage = () => {
             </div>
           </div>
           {/* Admin Card */}
-          <div className="w-full md:w-1/3 bg-gray-800 p-6 rounded-2xl shadow-inner shadow-gray-700 hover:shadow-xl hover:shadow-purple-500/50 transition-all duration-300 transform hover:scale-105 hover:ring-2 hover:ring-purple-400/50">
+          <div className="w-full md:w-1/4 bg-gray-800 p-6 rounded-2xl shadow-inner shadow-gray-700 hover:shadow-xl hover:shadow-purple-500/50 transition-all duration-300 transform hover:scale-105 hover:ring-2 hover:ring-purple-400/50">
             <div className="flex flex-col items-center text-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -244,6 +244,41 @@ const LandingPage = () => {
               <Link
                 to="/admin"
                 className="mt-4 text-purple-400 hover:text-purple-300 font-semibold flex items-center"
+              >
+                <span className="mr-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <polyline points="9 18 15 12 9 6" />
+                  </svg>
+                </span>
+              </Link>
+            </div>
+          </div>
+
+          {/* Join Meeting Card */}
+          <div className="w-full md:w-1/4 bg-gray-800 p-6 rounded-2xl shadow-inner shadow-gray-700 hover:shadow-xl hover:shadow-orange-500/50 transition-all duration-300 transform hover:scale-105 hover:ring-2 hover:ring-orange-400/50">
+            <div className="flex flex-col items-center text-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-16 w-16 text-orange-400 mb-4"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M17 10.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 2v-8l-4 2z"/>
+              </svg>
+              <p className="text-xl font-bold">JOIN MEETING</p>
+              <p className="text-sm text-gray-400 mt-1">Enter Code to Join</p>
+              <Link
+                to="/join-meeting"
+                className="mt-4 text-orange-400 hover:text-orange-300 font-semibold flex items-center"
               >
                 <span className="mr-1">
                   <svg
