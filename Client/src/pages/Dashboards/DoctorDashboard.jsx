@@ -9,6 +9,7 @@ import Prescriptions from '../Admin/Prescriptions';
 import PatientTable from '../Patient/PatientTable';
 import PatientForm from '../Patient/PatientForm';
 import Inventory from '../Doctor/Inventory';
+import PrescriptionForm from "../Prescription/PrescriptionForm"; // add this import
 
 const DoctorDashboard = () => {
   const { isSignedIn, isLoaded } = useAuth();
@@ -46,24 +47,31 @@ const DoctorDashboard = () => {
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard className="w-4 h-4 opacity-80" /> },
     { id: 'appointments', label: 'Appointments', icon: <ClipboardList className="w-4 h-4 opacity-80" /> },
-    { id: 'prescriptions', label: 'Prescriptions', icon: <FileText className="w-4 h-4 opacity-80" /> },
     { id: 'patients', label: 'Patients', icon: <Users className="w-4 h-4 opacity-80" /> },
     { id: 'inventory', label: 'Inventory', icon: <PackageSearch className="w-4 h-4 opacity-80" /> },
+    { id: "prescriptions.list", label: "Prescriptions", icon: <FileText className="w-4 h-4 opacity-80" /> }
   ];
 
   const renderPage = () => {
     switch (currentView) {
-      case 'dashboard':
+      case "dashboard":
         return <DoctorHome />;
-      case 'appointments':
+      case "appointments":
         return <Appointments />;
-      case 'prescriptions':
-        return <Prescriptions />;
-      case 'patients.list':
+      case "prescriptions.list":
+        return <Prescriptions onAdd={() => setCurrentView("prescriptions.add")} />;
+      case "prescriptions.add":
+        return (
+          <PrescriptionForm
+            onSave={() => setCurrentView("prescriptions.list")}
+            onCancel={() => setCurrentView("prescriptions.list")}
+          />
+        );
+      case "patients.list":
         return <PatientTable />;
-      case 'patients.add':
-        return <PatientForm onSave={() => setCurrentView('patients.list')} />;
-      case 'inventory':
+      case "patients.add":
+        return <PatientForm onSave={() => setCurrentView("patients.list")} />;
+      case "inventory":
         return <Inventory />;
       default:
         return <DoctorHome />;
@@ -92,9 +100,8 @@ const DoctorDashboard = () => {
               <button
                 key={item.id}
                 onClick={() => setCurrentView(item.id)}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-md border border-gray-800 text-sm ${
-                  currentView === item.id ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-900'
-                }`}
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-md border border-gray-800 text-sm ${currentView === item.id ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-900'
+                  }`}
               >
                 {item.icon}
                 <span className="font-medium">{item.label}</span>
@@ -106,9 +113,8 @@ const DoctorDashboard = () => {
           <div className="space-y-1">
             <button
               onClick={() => setIsPatientsOpen(v => !v)}
-              className={`w-full flex items-center justify-between px-3 py-2 rounded-md border border-gray-800 ${
-                currentView.startsWith('patients.') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-900'
-              }`}
+              className={`w-full flex items-center justify-between px-3 py-2 rounded-md border border-gray-800 ${currentView.startsWith('patients.') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-900'
+                }`}
             >
               <span className="flex items-center gap-2">
                 <Users className="w-4 h-4 opacity-80" />
@@ -120,17 +126,15 @@ const DoctorDashboard = () => {
               <div className="ml-6 space-y-1">
                 <button
                   onClick={() => setCurrentView('patients.list')}
-                  className={`w-full text-left px-3 py-2 rounded-md text-sm ${
-                    currentView === 'patients.list' ? 'bg-gray-800 text-white' : 'text-gray-300 hover:bg-gray-900'
-                  }`}
+                  className={`w-full text-left px-3 py-2 rounded-md text-sm ${currentView === 'patients.list' ? 'bg-gray-800 text-white' : 'text-gray-300 hover:bg-gray-900'
+                    }`}
                 >
                   View Patients
                 </button>
                 <button
                   onClick={() => setCurrentView('patients.add')}
-                  className={`w-full text-left px-3 py-2 rounded-md text-sm ${
-                    currentView === 'patients.add' ? 'bg-gray-800 text-white' : 'text-gray-300 hover:bg-gray-900'
-                  }`}
+                  className={`w-full text-left px-3 py-2 rounded-md text-sm ${currentView === 'patients.add' ? 'bg-gray-800 text-white' : 'text-gray-300 hover:bg-gray-900'
+                    }`}
                 >
                   Add Patient
                 </button>
